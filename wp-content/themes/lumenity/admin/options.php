@@ -7166,7 +7166,7 @@ function askme_admin_options()
 
 	$options[] = array(
 		'name'      => esc_html__("Add your email custom display name", "vbegy"),
-		'desc'      => esc_html__("Add it professional name, like 2code", "vbegy"),
+		'desc'      => esc_html__("Add it professional name, like Intself", "vbegy"),
 		'id'        => 'mail_name',
 		'condition' => 'custom_mail_name:not(0)',
 		'std'       => get_bloginfo('name'),
@@ -7276,7 +7276,7 @@ function askme_admin_options()
 	$options[] = array(
 		'name' => esc_html__("Add your copyrights for your mail templates", "vbegy"),
 		'id'   => 'copyrights_for_email',
-		'std'  => '&copy; ' . date('Y') . ' Lumeno. All Rights Reserved<br>With Love by <a href="https://intself.com/" target="_blank">2code</a>.',
+		'std'  => '&copy; ' . date('Y') . ' Lumeno. All Rights Reserved<br>With Love by <a href="https://intself.com/" target="_blank">intself</a>.',
 		'type' => 'textarea'
 	);
 
@@ -7762,7 +7762,7 @@ function askme_admin_options()
 		'name' => esc_html__('Copyrights', 'vbegy'),
 		'desc' => esc_html__('Put the copyrights of footer.', 'vbegy'),
 		'id' => 'footer_copyrights',
-		'std' => 'Copyright ' . date('Y') . ' Lumeno | <a href=https://intself.com/>By 2code</a>',
+		'std' => 'Copyright ' . date('Y') . ' Lumeno | <a href=https://intself.com/>By Intself</a>',
 		'type' => 'textarea'
 	);
 
