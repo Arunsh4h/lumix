@@ -88,7 +88,7 @@ class Latest_Tweets extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$defaults = array('title' => '@Follow Me','accounts' => '2codeThemes','no_of_tweets' => '5');
+		$defaults = array('title' => '@Follow Me','accounts' => 'IntselfThemes','no_of_tweets' => '5');
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
 
 		<p>

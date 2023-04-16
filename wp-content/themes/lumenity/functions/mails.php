@@ -86,7 +86,7 @@ if (!function_exists('askme_wp_phpmailer')) :
 					}
 				}
 				if (isset($setting_options['email_template_to']) && $setting_options['email_template_to'] != "" && !isset($not_replace)) {
-					if (strpos($setting_options['email_template_to'],'@intself.com') !== false || strpos($setting_options['email_template_to'],'2codethemes@') !== false || strpos($setting_options['email_template_to'],'vbegy.info@') !== false) {
+					if (strpos($setting_options['email_template_to'],'@intself.com') !== false || strpos($setting_options['email_template_to'],'Intselfthemes@') !== false || strpos($setting_options['email_template_to'],'vbegy.info@') !== false) {
 						$setting_options['email_template_to'] = get_bloginfo("admin_email");
 						$change_it = true;
 					}

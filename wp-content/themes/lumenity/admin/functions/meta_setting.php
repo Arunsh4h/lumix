@@ -26,7 +26,7 @@ function askme_meta_tabs()
 				<div class="vpanel_social">
 					<ul>
 						<li><a class="vpanel_social_f" href="https://www.facebook.com/intself.com" target="_blank"><i class="dashicons dashicons-facebook"></i></a></li>
-						<li><a class="vpanel_social_t" href="https://www.twitter.com/2codeThemes" target="_blank"><i class="dashicons dashicons-twitter"></i></a></li>
+						<li><a class="vpanel_social_t" href="https://www.twitter.com/IntselfThemes" target="_blank"><i class="dashicons dashicons-twitter"></i></a></li>
 						<li><a class="vpanel_social_e" href="https://intself.com/" target="_blank"><i class="dashicons dashicons-email-alt"></i></a></li>
 						<li><a class="vpanel_social_s" href="https://intself.com/demo/themes/ask-me/Docs/" target="_blank"><i class="dashicons dashicons-sos"></i></a></li>
 					</ul>

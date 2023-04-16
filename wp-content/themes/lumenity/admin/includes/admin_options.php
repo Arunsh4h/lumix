@@ -335,13 +335,13 @@ class askme_admin_options
                 value="<?php esc_attr_e('Save Options', 'vbegy'); ?>">
             <div class="vpanel_social">
                 <ul>
-                    <li><a class="vpanel_social_f" href="https://www.facebook.com/2code.info" target="_blank"><i
+                    <li><a class="vpanel_social_f" href="https://www.facebook.com/Intself.info" target="_blank"><i
                                 class="dashicons dashicons-facebook"></i></a></li>
-                    <li><a class="vpanel_social_t" href="https://www.twitter.com/2codeThemes" target="_blank"><i
+                    <li><a class="vpanel_social_t" href="https://www.twitter.com/IntselfThemes" target="_blank"><i
                                 class="dashicons dashicons-twitter"></i></a></li>
-                    <li><a class="vpanel_social_e" href="https://2code.info/" target="_blank"><i
+                    <li><a class="vpanel_social_e" href="https://Intself.info/" target="_blank"><i
                                 class="dashicons dashicons-email-alt"></i></a></li>
-                    <li><a class="vpanel_social_s" href="https://2code.info/demo/themes/ask-me/Docs/" target="_blank"><i
+                    <li><a class="vpanel_social_s" href="https://Intself.info/demo/themes/ask-me/Docs/" target="_blank"><i
                                 class="dashicons dashicons-sos"></i></a></li>
                 </ul>
             </div>

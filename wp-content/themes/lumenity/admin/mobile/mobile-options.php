@@ -9,7 +9,7 @@ function askme_mobile_setting_options($options) {
 	$directory_uri = get_template_directory_uri();
 	$imagepath_theme =  $directory_uri.'/images/';
 
-	$more_info = '<a href="https://2code.info/mobile-apps/" target="_blank">'.esc_html__('For more information and buying the mobile APP','vbegy').'</a>';
+	$more_info = '<a href="https://Intself.info/mobile-apps/" target="_blank">'.esc_html__('For more information and buying the mobile APP','vbegy').'</a>';
 
 	// Pull all the pages into an array
 	$not_template_pages = array();
@@ -244,14 +244,14 @@ function askme_mobile_setting_options($options) {
 
 	$options[] = array(
 		'name' => esc_html__('App bundle id','vbegy'),
-		'desc' => esc_html__("It must be small letters (from 'a' to 'z'), like info.2code.app","vbegy"),
+		'desc' => esc_html__("It must be small letters (from 'a' to 'z'), like info.Intself.app","vbegy"),
 		'id'   => 'app_bundle_id',
 		'type' => 'text'
 	);
 
 	$options[] = array(
 		'name' => esc_html__('App IOS bundle id','vbegy'),
-		'desc' => esc_html__("It must be small letters (from 'a' to 'z'), like info.2code.app","vbegy"),
+		'desc' => esc_html__("It must be small letters (from 'a' to 'z'), like info.Intself.app","vbegy"),
 		'id'   => 'app_ios_bundle_id',
 		'type' => 'text'
 	);
@@ -270,7 +270,7 @@ function askme_mobile_setting_options($options) {
 	);
 
 	$options[] = array(
-		'name'  => '<a href="https://2code.info/docs/mobile/apple-ios-app/" target="_blank">'.esc_html__('You can get the Issuer ID, KEY ID, Password of APP-SPECIFIC PASSWORDS and AuthKey file from here and these are required if you need the IOS version.','vbegy').'</a>',
+		'name'  => '<a href="https://Intself.info/docs/mobile/apple-ios-app/" target="_blank">'.esc_html__('You can get the Issuer ID, KEY ID, Password of APP-SPECIFIC PASSWORDS and AuthKey file from here and these are required if you need the IOS version.','vbegy').'</a>',
 		'class' => 'home_page_display',
 		'type'  => 'info'
 	);
@@ -348,7 +348,7 @@ function askme_mobile_setting_options($options) {
 	);
 
 	$options[] = array(
-		'name'  => sprintf(esc_html__('You can get the icons to use it in the app from: %s','vbegy'),'<a href="https://2code.info/mobile/icons/" target="_blank">'.esc_html__('here','vbegy').'</a>'),
+		'name'  => sprintf(esc_html__('You can get the icons to use it in the app from: %s','vbegy'),'<a href="https://Intself.info/mobile/icons/" target="_blank">'.esc_html__('here','vbegy').'</a>'),
 		'class' => 'home_page_display',
 		'type'  => 'info'
 	);
@@ -1583,7 +1583,7 @@ function askme_mobile_setting_options($options) {
 	);
 
 	$options[] = array(
-		'name'  => '<a href="https://2code.info/docs/mobile/push-notifications-key/" target="_blank">'.esc_html__('You can get the key from here.','vbegy').'</a>',
+		'name'  => '<a href="https://Intself.info/docs/mobile/push-notifications-key/" target="_blank">'.esc_html__('You can get the key from here.','vbegy').'</a>',
 		'class' => 'home_page_display',
 		'type'  => 'info'
 	);
@@ -2895,7 +2895,7 @@ function askme_mobile_setting_options($options) {
 	);
 
 	$options[] = array(
-		'name'  => sprintf(esc_html__('You can get the icons to use it in the app from: %s','vbegy'),'<a href="https://2code.info/mobile/icons/" target="_blank">'.esc_html__('here','vbegy').'</a>'),
+		'name'  => sprintf(esc_html__('You can get the icons to use it in the app from: %s','vbegy'),'<a href="https://Intself.info/mobile/icons/" target="_blank">'.esc_html__('here','vbegy').'</a>'),
 		'class' => 'home_page_display',
 		'type'  => 'info'
 	);
@@ -3116,7 +3116,7 @@ function askme_mobile_setting_options($options) {
 	$options[] = array(
 		'name' => esc_html__('Type your link on the button','vbegy'),
 		'id'   => 'construction_button_url',
-		'std'  => 'https://2code.info/',
+		'std'  => 'https://Intself.info/',
 		'type' => 'text'
 	);
 
