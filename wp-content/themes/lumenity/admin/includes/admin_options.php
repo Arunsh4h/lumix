@@ -298,82 +298,86 @@ class askme_admin_options
 	function options_page()
 	{
 		do_action('askme_options_page'); ?>
-		<div id="optionsframework-wrap">
-			<?php if (!function_exists('mobile_api_options') && !function_exists('mobile_options')) { ?>
-				<a class="app-img" href="https://2code.info/checkout/pay_for_apps/33664/?theme=askme" target="_blank"><img alt="Ask Me Mobile Application" src="https://drive.2code.info/discount/960x100-askme.png"></a>
-				<section id="footer_call_to_action" class="gray_section call_to_action">
-					<div class="container main_content_area">
-						<div class="row section">
-							<div class="section_container col col12">
-								<div class="section_inner_container">
-									<div class="row section_inner">
-										<div class="col col7">
-											<div class="main_section_left_title main_section_title">Test Application!</div>
-											<div class="main_section_left_content main_section_content">Test Ask Me application demo
-												on Google Play and App Store.</div>
-										</div>
-										<div class="col col5">
-											<div class="row">
-												<div class="col col6 col-app">
-													<a target="_blank" title="Download Android App" href="https://play.google.com/store/apps/details?id=com.askme.application">
-														<img alt="Play Store" src="https://2code.info/mobile/google_play.png">
-													</a>
-												</div>
-												<div class="col col6 col-app">
-													<a target="_blank" href="https://apps.apple.com/app/ask-me-application/id1542559413" title="Download IOS App">
-														<img alt="App Store" src="https://2code.info/mobile/app_store.png">
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			<?php } ?>
-			<form action="options.php" id="main_options_form" method="post">
-				<div class="optionsframework-header">
-					<a href="<?php echo askme_theme_url_tf ?>" target="_blank"></a>
-					<input type="submit" class="button-primary vpanel_save" name="update" value="<?php esc_attr_e('Save Options', 'vbegy'); ?>">
-					<div class="vpanel_social">
-						<ul>
-							<li><a class="vpanel_social_f" href="https://www.facebook.com/2code.info" target="_blank"><i class="dashicons dashicons-facebook"></i></a></li>
-							<li><a class="vpanel_social_t" href="https://www.twitter.com/2codeThemes" target="_blank"><i class="dashicons dashicons-twitter"></i></a></li>
-							<li><a class="vpanel_social_e" href="https://2code.info/" target="_blank"><i class="dashicons dashicons-email-alt"></i></a></li>
-							<li><a class="vpanel_social_s" href="https://2code.info/demo/themes/ask-me/Docs/" target="_blank"><i class="dashicons dashicons-sos"></i></a></li>
-						</ul>
-					</div>
-					<div class="clear"></div>
-				</div>
-				<div class="optionsframework-content">
-					<h2 class="nav-tab-wrapper">
-						<?php echo askme_admin_fields_class::askme_admin_tabs(); ?>
-					</h2>
-					<?php settings_errors('options-framework'); ?>
-					<div id="optionsframework-metabox" class="metabox-holder">
-						<div id="optionsframework" class="postbox">
-							<?php askme_admin_fields_class::askme_admin_fields();
+<div id="optionsframework-wrap">
+    <?php if (!function_exists('mobile_api_options') && !function_exists('mobile_options')) { ?>
+
+    <section id="footer_call_to_action" class="gray_section call_to_action">
+        <div class="container main_content_area">
+            <div class="row section">
+                <div class="section_container col col12">
+                    <div class="section_inner_container">
+                        <div class="row section_inner">
+                            <div class="col col7">
+                                <div class="main_section_left_title main_section_title"></div>
+                                <div class="main_section_left_content main_section_content"></div>
+                            </div>
+                            <div class="col col5">
+                                <div class="row">
+                                    <div class="col col6 col-app">
+
+                                    </div>
+                                    <div class="col col6 col-app">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php } ?>
+    <form action="options.php" id="main_options_form" method="post">
+        <div class="optionsframework-header">
+            <a href="<?php echo askme_theme_url_tf ?>" target="_blank"></a>
+            <input type="submit" class="button-primary vpanel_save" name="update"
+                value="<?php esc_attr_e('Save Options', 'vbegy'); ?>">
+            <div class="vpanel_social">
+                <ul>
+                    <li><a class="vpanel_social_f" href="https://www.facebook.com/2code.info" target="_blank"><i
+                                class="dashicons dashicons-facebook"></i></a></li>
+                    <li><a class="vpanel_social_t" href="https://www.twitter.com/2codeThemes" target="_blank"><i
+                                class="dashicons dashicons-twitter"></i></a></li>
+                    <li><a class="vpanel_social_e" href="https://2code.info/" target="_blank"><i
+                                class="dashicons dashicons-email-alt"></i></a></li>
+                    <li><a class="vpanel_social_s" href="https://2code.info/demo/themes/ask-me/Docs/" target="_blank"><i
+                                class="dashicons dashicons-sos"></i></a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="optionsframework-content">
+            <h2 class="nav-tab-wrapper">
+                <?php echo askme_admin_fields_class::askme_admin_tabs(); ?>
+            </h2>
+            <?php settings_errors('options-framework'); ?>
+            <div id="optionsframework-metabox" class="metabox-holder">
+                <div id="optionsframework" class="postbox">
+                    <?php askme_admin_fields_class::askme_admin_fields();
 							wp_nonce_field('saving_nonce', 'saving_nonce', true, true) ?>
-							<div id="ajax-saving"><i class="dashicons dashicons-yes"></i><?php _e("Saving", "vbegy") ?></div>
-							<div id="ajax-reset"><i class="dashicons dashicons-info"></i><?php _e("Reseting Options", "vbegy") ?>
-							</div>
-							<div id="ajax-load"><i class="dashicons dashicons-info"></i><?php esc_html_e("Loading the page and reclick on the button again", "vbegy") ?>
-							</div>
-						</div> <!-- / #container -->
-					</div>
-					<?php do_action('optionsframework_after'); ?>
-					<div class="clear"></div>
-				</div>
-				<div class="optionsframework-footer">
-					<input type="submit" class="button-primary vpanel_save" name="update" value="<?php esc_attr_e('Save Options', 'vbegy'); ?>">
-					<div id="loading"></div>
-					<input type="submit" class="reset-button button-secondary" id="reset_c" name="reset" value="<?php esc_attr_e('Restore Defaults', 'vbegy'); ?>">
-					<div class="clear"></div>
-				</div>
-			</form>
-		</div> <!-- / .wrap -->
+                    <div id="ajax-saving"><i class="dashicons dashicons-yes"></i><?php _e("Saving", "vbegy") ?></div>
+                    <div id="ajax-reset"><i
+                            class="dashicons dashicons-info"></i><?php _e("Reseting Options", "vbegy") ?>
+                    </div>
+                    <div id="ajax-load"><i
+                            class="dashicons dashicons-info"></i><?php esc_html_e("Loading the page and reclick on the button again", "vbegy") ?>
+                    </div>
+                </div> <!-- / #container -->
+            </div>
+            <?php do_action('optionsframework_after'); ?>
+            <div class="clear"></div>
+        </div>
+        <div class="optionsframework-footer">
+            <input type="submit" class="button-primary vpanel_save" name="update"
+                value="<?php esc_attr_e('Save Options', 'vbegy'); ?>">
+            <div id="loading"></div>
+            <input type="submit" class="reset-button button-secondary" id="reset_c" name="reset"
+                value="<?php esc_attr_e('Restore Defaults', 'vbegy'); ?>">
+            <div class="clear"></div>
+        </div>
+    </form>
+</div> <!-- / .wrap -->
 <?php
 	}
 
