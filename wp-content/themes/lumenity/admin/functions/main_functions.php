@@ -4,7 +4,7 @@ if (is_user_logged_in()) {
 } else {
 	define("is_user_logged_in", false);
 }
-define("askme_theme_url_tf", "https://bit.ly/2Wol5G3");
+define("askme_theme_url_tf", "https://www.intself.com");
 define("askme_meta", "vbegy");
 define("askme_terms", "vbegy");
 define("askme_author", "vbegy");
@@ -236,8 +236,6 @@ function askme_resize_img_full($thumbnail_size, $title = "")
 		$img_url = wp_get_attachment_url($thumb, $thumbnail_size);
 		$image = $img_url;
 		return "<img alt='" . (isset($title) && $title != "" ? $title : get_the_title()) . "' src='" . $image . "'>";
-	} else {
-		return "<img alt='" . (isset($title) && $title != "" ? $title : get_the_title()) . "' src='" . askme_image() . "'>";
 	}
 }
 /* vpanel_image */
@@ -535,33 +533,36 @@ function Vpanel_Questions($questions_per_page = 5, $orderby = '', $display_date 
 				$yes_private = 1;
 			}
 			if ($yes_private == 1) { ?>
-				<li class="related-item">
-					<?php if (has_post_thumbnail() && $display_image == "on") { ?>
-						<div class="author-img">
-							<a href="<?php the_permalink(); ?>" title="<?php printf('%s', the_title_attribute('echo=0')); ?>" rel="bookmark">
-								<?php echo askme_resize_img(60, 60); ?>
-							</a>
-						</div>
-					<?php } ?>
-					<div class="questions-div">
-						<h3>
-							<a href="<?php the_permalink(); ?>" title="<?php printf('%s', the_title_attribute('echo=0')); ?>" rel="bookmark">
-								<?php if ($questions_excerpt == 0) { ?>
-									<i class="icon-double-angle-right"></i>
-								<?php }
+<li class="related-item">
+    <?php if (has_post_thumbnail() && $display_image == "on") { ?>
+    <div class="author-img">
+        <a href="<?php the_permalink(); ?>" title="<?php printf('%s', the_title_attribute('echo=0')); ?>"
+            rel="bookmark">
+            <?php echo askme_resize_img(60, 60); ?>
+        </a>
+    </div>
+    <?php } ?>
+    <div class="questions-div">
+        <h3>
+            <a href="<?php the_permalink(); ?>" title="<?php printf('%s', the_title_attribute('echo=0')); ?>"
+                rel="bookmark">
+                <?php if ($questions_excerpt == 0) { ?>
+                <i class="icon-double-angle-right"></i>
+                <?php }
 								excerpt_title($excerpt_title); ?>
-							</a>
-						</h3>
-						<?php if ($questions_excerpt != 0) { ?>
-							<p><?php excerpt($questions_excerpt); ?></p>
-						<?php }
+            </a>
+        </h3>
+        <?php if ($questions_excerpt != 0) { ?>
+        <p><?php excerpt($questions_excerpt); ?></p>
+        <?php }
 						if ($display_date == "on") { ?>
-							<div class="clear"></div><span <?php echo ($questions_excerpt == 0 ? "class='margin_t_5'" : "") ?>><?php the_time($date_format); ?></span>
-						<?php }
+        <div class="clear"></div><span
+            <?php echo ($questions_excerpt == 0 ? "class='margin_t_5'" : "") ?>><?php the_time($date_format); ?></span>
+        <?php }
 						if ($display_author == "on") { ?>
-							<div class="clear"></div>
-							<span class="question-meta-author<?php echo ($questions_excerpt == 0 ? " margin_t_5" : "") ?>">
-								<?php if ($post->post_author == 0) {
+        <div class="clear"></div>
+        <span class="question-meta-author<?php echo ($questions_excerpt == 0 ? " margin_t_5" : "") ?>">
+            <?php if ($post->post_author == 0) {
 									$anonymously_user = get_post_meta($post->ID, 'anonymously_user', true);
 									$anonymously_question = get_post_meta($post->ID, 'anonymously_question', true);
 									if ($anonymously_question == 1 && $anonymously_user != "") {
@@ -573,16 +574,17 @@ function Vpanel_Questions($questions_per_page = 5, $orderby = '', $display_date 
 										$question_username = ($question_username != "" ? $question_username : esc_html__("Anonymous", "vbegy"));
 										$question_email = ($question_email != "" ? $question_email : 0);
 									} ?>
-									<i class="icon-user"></i><span><?php echo $question_username ?></span>
-								<?php } else { ?>
-									<a href="<?php echo vpanel_get_user_url($post->post_author) ?>"><i class="icon-user"></i><?php echo get_the_author() ?></a>
-								<?php do_action("askme_badge_widget_posts", $post->post_author);
+            <i class="icon-user"></i><span><?php echo $question_username ?></span>
+            <?php } else { ?>
+            <a href="<?php echo vpanel_get_user_url($post->post_author) ?>"><i
+                    class="icon-user"></i><?php echo get_the_author() ?></a>
+            <?php do_action("askme_badge_widget_posts", $post->post_author);
 								} ?>
-							</span>
-						<?php } ?>
-					</div>
-				</li>
-			<?php }
+        </span>
+        <?php } ?>
+    </div>
+</li>
+<?php }
 		endwhile;
 		echo "</ul>";
 	endif;
@@ -621,19 +623,21 @@ function Vpanel_comments($post_or_question = ask_questions_type, $comments_numbe
 			$yes_private_answer = ask_private_answer($comment->comment_ID, $comment->user_id, get_current_user_id(), $post_author);
 		}
 		if ($yes_private == 1 && $yes_private_answer == 1) { ?>
-			<li>
-				<div class="author-img">
-					<?php if ($comment->user_id != 0) { ?>
-						<a href="<?php echo $user_profile_page ?>" original-title="<?php echo strip_tags($comment->comment_author); ?>" class="tooltip-n">
-						<?php }
+<li>
+    <div class="author-img">
+        <?php if ($comment->user_id != 0) { ?>
+        <a href="<?php echo $user_profile_page ?>" original-title="<?php echo strip_tags($comment->comment_author); ?>"
+            class="tooltip-n">
+            <?php }
 					echo askme_user_avatar($your_avatar, 65, 65, $comment->user_id, $comment->comment_author);
 					if ($comment->user_id != 0) { ?>
-						</a>
-					<?php } ?>
-				</div>
-				<h6><a href="<?php echo get_permalink($comment->comment_post_ID); ?>#comment-<?php echo $comment->comment_ID; ?>"><?php echo strip_tags($comment->comment_author); ?> : <?php echo wp_trim_words($comment->comment_content, $comment_excerpt); ?></a></h6>
-			</li>
-		<?php }
+        </a>
+        <?php } ?>
+    </div>
+    <h6><a href="<?php echo get_permalink($comment->comment_post_ID); ?>#comment-<?php echo $comment->comment_ID; ?>"><?php echo strip_tags($comment->comment_author); ?>
+            : <?php echo wp_trim_words($comment->comment_content, $comment_excerpt); ?></a></h6>
+</li>
+<?php }
 	}
 	echo "</ul></div>";
 }
@@ -686,35 +690,36 @@ if (!function_exists('vbegy_comment')) {
 			}
 		}
 		?>
-		<li <?php comment_class('comment'); ?> id="li-comment-<?php comment_ID(); ?>">
-			<div id="comment-<?php comment_ID(); ?>" class="comment-body clearfix">
-				<div class="avatar-img">
-					<?php if ($comment->user_id != 0) {
+<li <?php comment_class('comment'); ?> id="li-comment-<?php comment_ID(); ?>">
+    <div id="comment-<?php comment_ID(); ?>" class="comment-body clearfix">
+        <div class="avatar-img">
+            <?php if ($comment->user_id != 0) {
 						$vpanel_get_user_url = vpanel_get_user_url($comment->user_id, get_the_author_meta('nickname', $comment->user_id));
 						if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
-							<a original-title="<?php echo strip_tags($comment->comment_author); ?>" class="tooltip-n" href="<?php echo esc_url($vpanel_get_user_url) ?>">
-							<?php }
+            <a original-title="<?php echo strip_tags($comment->comment_author); ?>" class="tooltip-n"
+                href="<?php echo esc_url($vpanel_get_user_url) ?>">
+                <?php }
 						echo askme_user_avatar(get_the_author_meta(askme_avatar_name(), $comment->user_id), 65, 65, $comment->user_id, $comment->comment_author);
 						if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
-							</a>
-					<?php }
+            </a>
+            <?php }
 					} else {
 						$vpanel_get_user_url = ($comment->comment_author_url != "" ? $comment->comment_author_url : "vpanel_No_site");
 						echo get_avatar($comment->comment_author_email, 65);
 					} ?>
-				</div>
-				<div class="comment-text">
-					<div class="author clearfix">
-						<div class="comment-meta">
-							<div class="comment-author">
-								<?php if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
-									<a href="<?php echo esc_url($vpanel_get_user_url) ?>">
-									<?php }
+        </div>
+        <div class="comment-text">
+            <div class="author clearfix">
+                <div class="comment-meta">
+                    <div class="comment-author">
+                        <?php if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
+                        <a href="<?php echo esc_url($vpanel_get_user_url) ?>">
+                            <?php }
 								$anonymously_user = get_comment_meta($comment_id, "anonymously_user", true);
 								echo ($anonymously_user != "" ? esc_html__("Anonymous", "vbegy") : get_comment_author($comment_id));
 								if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
-									</a>
-								<?php }
+                        </a>
+                        <?php }
 								if ($comment->user_id != 0) {
 									$verified_user = get_the_author_meta('verified_user', $comment->user_id);
 									if ($verified_user == 1) {
@@ -722,31 +727,33 @@ if (!function_exists('vbegy_comment')) {
 									}
 									echo vpanel_get_badge($comment->user_id);
 								} ?>
-							</div>
-							<a href="<?php echo get_permalink($comment->comment_post_ID); ?>#comment-<?php echo esc_attr($comment->comment_ID); ?>" class="date"><i class="fa fa-calendar"></i><?php printf(__('%1$s at %2$s', 'vbegy'), get_comment_date(), get_comment_time()) ?></a>
-						</div>
-						<div class="comment-reply">
-							<?php if (current_user_can('edit_comment', $comment_id) || ($can_edit_comment == 1 && $comment->user_id == get_current_user_id() && $comment->user_id != 0 && get_current_user_id() != 0 && ($can_edit_comment_after == 0 || $time_end <= $can_edit_comment_after))) {
+                    </div>
+                    <a href="<?php echo get_permalink($comment->comment_post_ID); ?>#comment-<?php echo esc_attr($comment->comment_ID); ?>"
+                        class="date"><i
+                            class="fa fa-calendar"></i><?php printf(__('%1$s at %2$s', 'vbegy'), get_comment_date(), get_comment_time()) ?></a>
+                </div>
+                <div class="comment-reply">
+                    <?php if (current_user_can('edit_comment', $comment_id) || ($can_edit_comment == 1 && $comment->user_id == get_current_user_id() && $comment->user_id != 0 && get_current_user_id() != 0 && ($can_edit_comment_after == 0 || $time_end <= $can_edit_comment_after))) {
 								echo "<a class='comment-edit-link edit-comment' href='" . esc_url(add_query_arg("comment_id", $comment_id, get_page_link(askme_options('edit_comment')))) . "'><i class='icon-pencil'></i>" . __("Edit", "vbegy") . "</a>";
 							}
 							if (($can_delete_comment == 1 && $comment->user_id == get_current_user_id() && $comment->user_id > 0 && get_current_user_id() > 0) || current_user_can('edit_comment', $comment_id) || is_super_admin(get_current_user_id())) {
 								echo "<a class='comment-delete-link delete-comment' href='" . esc_url(add_query_arg(array('delete_comment' => $comment_id), get_permalink($comment->comment_post_ID))) . "'><i class='icon-trash'></i>" . __("Delete", "vbegy") . "</a>";
 							}
 							comment_reply_link(array_merge($args, array('reply_text' => '<i class="icon-reply"></i>' . __('Reply', 'vbegy'), 'after' => '', 'depth' => $depth, 'max_depth' => $args['max_depth']))); ?>
-						</div>
-					</div>
-					<div class="text">
-						<?php if ($edit_comment == "edited") { ?>
-							<em><?php _e('This comment is edited.', 'vbegy') ?></em><br>
-						<?php }
+                </div>
+            </div>
+            <div class="text">
+                <?php if ($edit_comment == "edited") { ?>
+                <em><?php _e('This comment is edited.', 'vbegy') ?></em><br>
+                <?php }
 						if ($comment->comment_approved == '0') : ?>
-							<em><?php _e('Your comment is awaiting moderation.', 'vbegy') ?></em><br>
-						<?php endif;
+                <em><?php _e('Your comment is awaiting moderation.', 'vbegy') ?></em><br>
+                <?php endif;
 						comment_text(); ?>
-					</div>
-				</div>
-			</div>
-			<?php
+            </div>
+        </div>
+    </div>
+    <?php
 		}
 	}
 	/* Comment video */
@@ -914,43 +921,46 @@ if (!function_exists('vbegy_comment')) {
 			$time_end = ($time_now - $time_edit_comment) / 60 / 60;
 			$edit_comment = get_comment_meta($comment_id, "edit_comment", true);
 			if ($yes_private_answer != 1) { ?>
-		<li class="comment byuser comment ">
-			<div class="comment-body clearfix" rel="post-<?php echo $post->ID ?>">
-				<div class="comment-text">
-					<div class="text">
-						<p><?php _e("Sorry, this is a private answer.", "vbegy"); ?></p>
-					</div>
-				</div>
-			</div>
-		<?php } else { ?>
-		<li <?php comment_class('comment ' . $comment_best_answer); ?> id="li-comment-<?php comment_ID(); ?>">
-			<div<?php echo ($best_answer_comment == "best_answer_comment" || $the_best_answer == $comment_id ? " itemprop='acceptedAnswer'" : " itemprop='suggestedAnswer'") ?> id="comment-<?php comment_ID(); ?>" class="comment-body clearfix" rel="post-<?php echo $post->ID ?>" itemscope itemtype="http://schema.org/Answer">
-				<div class="avatar-img">
-					<?php if ($comment->user_id != 0) {
+<li class="comment byuser comment ">
+    <div class="comment-body clearfix" rel="post-<?php echo $post->ID ?>">
+        <div class="comment-text">
+            <div class="text">
+                <p><?php _e("Sorry, this is a private answer.", "vbegy"); ?></p>
+            </div>
+        </div>
+    </div>
+    <?php } else { ?>
+<li <?php comment_class('comment ' . $comment_best_answer); ?> id="li-comment-<?php comment_ID(); ?>">
+    <div<?php echo ($best_answer_comment == "best_answer_comment" || $the_best_answer == $comment_id ? " itemprop='acceptedAnswer'" : " itemprop='suggestedAnswer'") ?>
+        id="comment-<?php comment_ID(); ?>" class="comment-body clearfix" rel="post-<?php echo $post->ID ?>" itemscope
+        itemtype="http://schema.org/Answer">
+        <div class="avatar-img">
+            <?php if ($comment->user_id != 0) {
 						$vpanel_get_user_url = vpanel_get_user_url($comment->user_id, get_the_author_meta('nickname', $comment->user_id));
 						if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
-							<a original-title="<?php echo strip_tags($comment->comment_author); ?>" class="tooltip-n" href="<?php echo esc_url($vpanel_get_user_url) ?>">
-							<?php }
+            <a original-title="<?php echo strip_tags($comment->comment_author); ?>" class="tooltip-n"
+                href="<?php echo esc_url($vpanel_get_user_url) ?>">
+                <?php }
 						echo askme_user_avatar(get_the_author_meta(askme_avatar_name(), $comment->user_id), 65, 65, $comment->user_id, $comment->comment_author);
 						if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
-							</a>
-					<?php }
+            </a>
+            <?php }
 					} else {
 						$vpanel_get_user_url = ($comment->comment_author_url != "" ? $comment->comment_author_url : "vpanel_No_site");
 						echo get_avatar($comment, 65);
 					} ?>
-				</div>
-				<div class="comment-text">
-					<div class="author clearfix">
-						<div class="comment-author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-							<?php if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
-								<a itemprop="url" href="<?php echo esc_url($vpanel_get_user_url) ?>">
-								<?php }
+        </div>
+        <div class="comment-text">
+            <div class="author clearfix">
+                <div class="comment-author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                    <?php if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
+                    <a itemprop="url" href="<?php echo esc_url($vpanel_get_user_url) ?>">
+                        <?php }
 							$anonymously_user = get_comment_meta($comment_id, "anonymously_user", true);
 							echo '<span itemprop="name">' . ($anonymously_user != "" ? esc_html__("Anonymous", "vbegy") : get_comment_author($comment_id)) . '</span>';
 							if ($vpanel_get_user_url != "" && $vpanel_get_user_url != "vpanel_No_site") { ?>
-								</a>
-							<?php }
+                    </a>
+                    <?php }
 							if ($comment->user_id != 0) {
 								$verified_user = get_the_author_meta('verified_user', $comment->user_id);
 								if ($verified_user == 1) {
@@ -958,63 +968,79 @@ if (!function_exists('vbegy_comment')) {
 								}
 								echo vpanel_get_badge($comment->user_id);
 							} ?>
-						</div>
-						<?php if ($active_vote == 1) {
+                </div>
+                <?php if ($active_vote == 1) {
 							$show_dislike_answers = askme_options("show_dislike_answers"); ?>
-							<div class="comment-vote">
-								<ul class="single-question-vote">
-									<?php if ((is_user_logged_in && $comment->user_id != $user_get_current_user_id) || (!is_user_logged_in && $active_vote_unlogged == 1)) { ?>
-										<li class="loader_3"></li>
-										<li><a href="#" class="single-question-vote-up ask_vote_up comment_vote_up vote_allow<?php echo (isset($_COOKIE[askme_options("uniqid_cookie") . 'comment_vote' . $comment_id]) ? " " . $_COOKIE[askme_options("uniqid_cookie") . 'comment_vote' . $comment_id] . "-" . $comment_id : "") ?>" title="<?php _e("Like", "vbegy"); ?>" id="comment_vote_up-<?php echo $comment_id ?>"><i class="icon-thumbs-up"></i></a></li>
-										<?php if ($show_dislike_answers != 1) { ?>
-											<li><a href="#" class="single-question-vote-down ask_vote_down comment_vote_down vote_allow<?php echo (isset($_COOKIE[askme_options("uniqid_cookie") . 'comment_vote' . $comment_id]) ? " " . $_COOKIE[askme_options("uniqid_cookie") . 'comment_vote' . $comment_id] . "-" . $comment_id : "") ?>" id="comment_vote_down-<?php echo $comment_id ?>" title="<?php _e("Dislike", "vbegy"); ?>"><i class="icon-thumbs-down"></i></a></li>
-										<?php }
+                <div class="comment-vote">
+                    <ul class="single-question-vote">
+                        <?php if ((is_user_logged_in && $comment->user_id != $user_get_current_user_id) || (!is_user_logged_in && $active_vote_unlogged == 1)) { ?>
+                        <li class="loader_3"></li>
+                        <li><a href="#"
+                                class="single-question-vote-up ask_vote_up comment_vote_up vote_allow<?php echo (isset($_COOKIE[askme_options("uniqid_cookie") . 'comment_vote' . $comment_id]) ? " " . $_COOKIE[askme_options("uniqid_cookie") . 'comment_vote' . $comment_id] . "-" . $comment_id : "") ?>"
+                                title="<?php _e("Like", "vbegy"); ?>" id="comment_vote_up-<?php echo $comment_id ?>"><i
+                                    class="icon-thumbs-up"></i></a></li>
+                        <?php if ($show_dislike_answers != 1) { ?>
+                        <li><a href="#"
+                                class="single-question-vote-down ask_vote_down comment_vote_down vote_allow<?php echo (isset($_COOKIE[askme_options("uniqid_cookie") . 'comment_vote' . $comment_id]) ? " " . $_COOKIE[askme_options("uniqid_cookie") . 'comment_vote' . $comment_id] . "-" . $comment_id : "") ?>"
+                                id="comment_vote_down-<?php echo $comment_id ?>"
+                                title="<?php _e("Dislike", "vbegy"); ?>"><i class="icon-thumbs-down"></i></a></li>
+                        <?php }
 									} else { ?>
-										<li class="loader_3"></li>
-										<li><a href="#" class="single-question-vote-up ask_vote_up comment_vote_up <?php echo (is_user_logged_in && $comment->user_id == $user_get_current_user_id ? "vote_not_allow" : "vote_not_user") ?>" title="<?php _e("Like", "vbegy"); ?>"><i class="icon-thumbs-up"></i></a></li>
-										<?php if ($show_dislike_answers != 1) { ?>
-											<li><a href="#" class="single-question-vote-down ask_vote_down comment_vote_down <?php echo (is_user_logged_in && $comment->user_id == $user_get_current_user_id ? "vote_not_allow" : "vote_not_user") ?>" title="<?php _e("Dislike", "vbegy"); ?>"><i class="icon-thumbs-down"></i></a></li>
-									<?php }
+                        <li class="loader_3"></li>
+                        <li><a href="#"
+                                class="single-question-vote-up ask_vote_up comment_vote_up <?php echo (is_user_logged_in && $comment->user_id == $user_get_current_user_id ? "vote_not_allow" : "vote_not_user") ?>"
+                                title="<?php _e("Like", "vbegy"); ?>"><i class="icon-thumbs-up"></i></a></li>
+                        <?php if ($show_dislike_answers != 1) { ?>
+                        <li><a href="#"
+                                class="single-question-vote-down ask_vote_down comment_vote_down <?php echo (is_user_logged_in && $comment->user_id == $user_get_current_user_id ? "vote_not_allow" : "vote_not_user") ?>"
+                                title="<?php _e("Dislike", "vbegy"); ?>"><i class="icon-thumbs-down"></i></a></li>
+                        <?php }
 									} ?>
-								</ul>
-							</div>
-							<span itemprop="upvoteCount" class="question-vote-result question_vote_result<?php echo ($comment_vote < 0 ? " question_vote_red" : "") ?>"><?php echo ($comment_vote != "" ? $comment_vote : 0) ?></span>
-						<?php } ?>
-						<div class="comment-meta">
-							<?php $get_comment_date = get_comment_date("c", $comment_id);
+                    </ul>
+                </div>
+                <span itemprop="upvoteCount"
+                    class="question-vote-result question_vote_result<?php echo ($comment_vote < 0 ? " question_vote_red" : "") ?>"><?php echo ($comment_vote != "" ? $comment_vote : 0) ?></span>
+                <?php } ?>
+                <div class="comment-meta">
+                    <?php $get_comment_date = get_comment_date("c", $comment_id);
 							echo (is_single() ? '<span class="ask-hide" itemprop="dateCreated" datetime="' . $get_comment_date . '">' . $get_comment_date . '</span>' : ''); ?>
-							<a itemprop="url" href="<?php echo get_permalink($comment->comment_post_ID); ?>#comment-<?php echo esc_attr($comment->comment_ID); ?>" class="date"><span><i class="fa fa-calendar"></i><?php printf(__('%1$s at %2$s', 'vbegy'), get_comment_date(), get_comment_time()) ?></span></a>
-						</div>
-						<div class="comment-reply">
-							<?php if (current_user_can('edit_comment', $comment_id) || ($can_edit_comment == 1 && $comment->user_id == $user_get_current_user_id && $comment->user_id != 0 && $user_get_current_user_id != 0 && ($can_edit_comment_after == 0 || $time_end <= $can_edit_comment_after))) {
+                    <a itemprop="url"
+                        href="<?php echo get_permalink($comment->comment_post_ID); ?>#comment-<?php echo esc_attr($comment->comment_ID); ?>"
+                        class="date"><span><i
+                                class="fa fa-calendar"></i><?php printf(__('%1$s at %2$s', 'vbegy'), get_comment_date(), get_comment_time()) ?></span></a>
+                </div>
+                <div class="comment-reply">
+                    <?php if (current_user_can('edit_comment', $comment_id) || ($can_edit_comment == 1 && $comment->user_id == $user_get_current_user_id && $comment->user_id != 0 && $user_get_current_user_id != 0 && ($can_edit_comment_after == 0 || $time_end <= $can_edit_comment_after))) {
 								echo "<a class='comment-edit-link edit-comment' href='" . esc_url(add_query_arg("comment_id", $comment_id, get_page_link(askme_options('edit_comment')))) . "'><i class='icon-pencil'></i>" . __("Edit", "vbegy") . "</a>";
 							}
 							if (($can_delete_comment == 1 && $comment->user_id == $user_get_current_user_id && $comment->user_id > 0 && $user_get_current_user_id > 0) || current_user_can('edit_comment', $comment_id) || is_super_admin($user_get_current_user_id)) {
 								echo "<a class='comment-delete-link delete-comment delete-answer' href='" . esc_url(add_query_arg(array('delete_comment' => $comment_id), get_permalink($comment->comment_post_ID))) . "'><i class='icon-trash'></i>" . __("Delete", "vbegy") . "</a>";
 							}
 							if ($active_reports == 1 && (is_user_logged_in || (!is_user_logged_in && $active_logged_reports != 1))) { ?>
-								<a class="question_r_l comment_l report_c" href="#"><i class="icon-flag"></i><?php _e("Report", "vbegy") ?></a>
-							<?php }
+                    <a class="question_r_l comment_l report_c" href="#"><i
+                            class="icon-flag"></i><?php _e("Report", "vbegy") ?></a>
+                    <?php }
 							comment_reply_link(array_merge($args, array('reply_text' => '<i class="icon-reply"></i>' . __('Reply', 'vbegy'), 'login_text' => '<i class="icon-lock"></i>' . __('Log in to Reply', 'vbegy'), 'after' => '', 'depth' => $depth, 'max_depth' => $args['max_depth']))); ?>
-						</div>
-					</div>
-					<div class="text">
-						<?php if ($active_reports == 1 && (is_user_logged_in || (!is_user_logged_in && $active_logged_reports != 1))) { ?>
-							<div class="explain-reported">
-								<h3><?php _e("Please briefly explain why you feel this answer should be reported.", "vbegy") ?></h3>
-								<textarea name="explain-reported"></textarea>
-								<div class="clearfix"></div>
-								<div class="loader_3"></div>
-								<div class="color button small report"><?php _e("Report", "vbegy") ?></div>
-								<div class="color button small dark_button cancel"><?php _e("Cancel", "vbegy") ?></div>
-							</div><!-- End reported -->
-						<?php }
+                </div>
+            </div>
+            <div class="text">
+                <?php if ($active_reports == 1 && (is_user_logged_in || (!is_user_logged_in && $active_logged_reports != 1))) { ?>
+                <div class="explain-reported">
+                    <h3><?php _e("Please briefly explain why you feel this answer should be reported.", "vbegy") ?></h3>
+                    <textarea name="explain-reported"></textarea>
+                    <div class="clearfix"></div>
+                    <div class="loader_3"></div>
+                    <div class="color button small report"><?php _e("Report", "vbegy") ?></div>
+                    <div class="color button small dark_button cancel"><?php _e("Cancel", "vbegy") ?></div>
+                </div><!-- End reported -->
+                <?php }
 						if ($edit_comment == "edited") { ?>
-							<em class="comment-edited"><?php esc_html_e('This answer was edited.', 'vbegy') ?></em><br>
-						<?php }
+                <em class="comment-edited"><?php esc_html_e('This answer was edited.', 'vbegy') ?></em><br>
+                <?php }
 						if ($comment->comment_approved == '0') : ?>
-							<em class="comment-awaiting"><?php esc_html_e('Your answer is awaiting moderation.', 'vbegy') ?></em><br>
-						<?php endif;
+                <em
+                    class="comment-awaiting"><?php esc_html_e('Your answer is awaiting moderation.', 'vbegy') ?></em><br>
+                <?php endif;
 						$featured_image_question_answers = askme_options("featured_image_question_answers");
 						if ($featured_image_question_answers == 1) {
 							$featured_image = get_comment_meta($comment_id, 'featured_image', true);
@@ -1055,13 +1081,13 @@ if (!function_exists('vbegy_comment')) {
 								}
 							}
 						} ?>
-						<div itemprop="text"><?php comment_text(); ?></div>
-						<div class="clearfix"></div>
-						<?php if ($video_answer_position == "after" && $answer_video == 1 && isset($video_answer_id) && $video_answer_id != "" && $video_answer_description == "on") {
+                <div itemprop="text"><?php comment_text(); ?></div>
+                <div class="clearfix"></div>
+                <?php if ($video_answer_position == "after" && $answer_video == 1 && isset($video_answer_id) && $video_answer_id != "" && $video_answer_description == "on") {
 							echo ($las_video);
 						} ?>
-						<div class="clearfix"></div>
-						<?php if ($featured_image_question_answers && isset($featured_answer_position) && $featured_answer_position == "after" && isset($img_url) && $img_url != "" && isset($last_image) && $last_image != "") {
+                <div class="clearfix"></div>
+                <?php if ($featured_image_question_answers && isset($featured_answer_position) && $featured_answer_position == "after" && isset($img_url) && $img_url != "" && isset($last_image) && $last_image != "") {
 							echo "<div class='featured_image_question featured_image_after'><a href='" . $link_url . "'>" . $last_image . "</a></div>
 		    	        		<div class='clearfix'></div>";
 						}
@@ -1071,10 +1097,10 @@ if (!function_exists('vbegy_comment')) {
 							echo "<div class='clearfix'></div><br><a href='" . wp_get_attachment_url($added_file) . "'>" . __("Attachment", "vbegy") . "</a>";
 						}
 						?>
-					</div>
-					<div class="clearfix"></div>
-					<div class="loader_3"></div>
-					<?php
+            </div>
+            <div class="clearfix"></div>
+            <div class="loader_3"></div>
+            <?php
 					$user_best_answer = esc_attr(get_the_author_meta('user_best_answer', $user_get_current_user_id));
 					if ($best_answer_comment == "best_answer_comment" || $the_best_answer == $comment_id) {
 						echo '<div class="commentform question-answered question-answered-done"><i class="icon-ok"></i>' . __("Best answer", "vbegy") . '</div>
@@ -1084,13 +1110,16 @@ if (!function_exists('vbegy_comment')) {
 						}
 					}
 					if (((is_user_logged_in && $user_get_current_user_id == $post->post_author && $active_best_answer == 1) || (isset($user_best_answer) && $user_best_answer == 1) || (is_super_admin($user_get_current_user_id))) && ($the_best_answer == 0 || $the_best_answer == "")) { ?>
-						<a class="commentform best_answer_a question-report" data-nonce="<?php echo wp_create_nonce("askme_best_answer_nonce") ?>" title="<?php _e("Select as best answer", "vbegy"); ?>" href="#"><?php _e("Select as best answer", "vbegy"); ?></a>
-					<?php } ?>
-					<div class="no_vote_more"></div>
-					<?php do_action("askme_after_answer_action", $comment->user_id) ?>
-				</div>
-				</div>
-				<?php
+            <a class="commentform best_answer_a question-report"
+                data-nonce="<?php echo wp_create_nonce("askme_best_answer_nonce") ?>"
+                title="<?php _e("Select as best answer", "vbegy"); ?>"
+                href="#"><?php _e("Select as best answer", "vbegy"); ?></a>
+            <?php } ?>
+            <div class="no_vote_more"></div>
+            <?php do_action("askme_after_answer_action", $comment->user_id) ?>
+        </div>
+        </div>
+        <?php
 			}
 			if (isset($k) && $k == askme_options("between_comments_position")) {
 				$between_adv_type = askme_options("between_comments_adv_type");
@@ -1658,21 +1687,26 @@ if (!function_exists('vbegy_comment')) {
 						}
 					}
 					if (isset($options_categories) && is_array($options_categories)) { ?>
-						<div class="col-md-6<?php echo ($cat_archives_search == 1 ? "" : " col-md-right") ?> search-form">
-							<div class="search-filter-form">
-								<span class="styled-select cat-filter">
-									<?php $option_url = (is_tax(ask_question_category) || is_tax(ask_question_tags) || is_post_type_archive(ask_questions_type) ? get_post_type_archive_link(ask_questions_type) : (is_tax("product_cat") || is_tax("product_tag") || is_post_type_archive("product") ? get_post_type_archive_link("product") : "")) ?>
-									<select class="home_categories" data-taxonomy="<?php echo esc_attr($cats_search) ?>">
-										<option<?php echo (is_post_type_archive(ask_questions_type) ? ' selected="selected"' : '') ?> value="<?php echo esc_url($option_url) ?>"><?php esc_html_e('All Categories', 'vbegy') ?></option>
-											<?php foreach ($options_categories as $category) {
+        <div class="col-md-6<?php echo ($cat_archives_search == 1 ? "" : " col-md-right") ?> search-form">
+            <div class="search-filter-form">
+                <span class="styled-select cat-filter">
+                    <?php $option_url = (is_tax(ask_question_category) || is_tax(ask_question_tags) || is_post_type_archive(ask_questions_type) ? get_post_type_archive_link(ask_questions_type) : (is_tax("product_cat") || is_tax("product_tag") || is_post_type_archive("product") ? get_post_type_archive_link("product") : "")) ?>
+                    <select class="home_categories" data-taxonomy="<?php echo esc_attr($cats_search) ?>">
+                        <option<?php echo (is_post_type_archive(ask_questions_type) ? ' selected="selected"' : '') ?>
+                            value="<?php echo esc_url($option_url) ?>"><?php esc_html_e('All Categories', 'vbegy') ?>
+                            </option>
+                            <?php foreach ($options_categories as $category) {
 												$option_url = get_term_link($category->slug, is_tax(ask_question_category) || is_tax(ask_question_tags) || is_post_type_archive(ask_questions_type) ? ask_question_category : (is_tax("product_tag") || is_tax("product_cat") || is_post_type_archive("product") ? "product_cat" : "category")); ?>
-												<option <?php echo (is_category() || is_tax(ask_question_category) || is_tax("product_cat") || is_tax(ask_question_tags) || is_tax("product_tag") ? selected(esc_attr(get_query_var((is_category() ? 'cat' : 'term'))), (is_category() ? $category->term_id : $category->slug), false) : "") ?> value="<?php echo esc_url($option_url) ?>"><?php echo esc_html($category->name) ?></option>
-											<?php } ?>
-									</select>
-								</span>
-							</div>
-						</div><!-- End search-form -->
-						<?php
+                            <option
+                                <?php echo (is_category() || is_tax(ask_question_category) || is_tax("product_cat") || is_tax(ask_question_tags) || is_tax("product_tag") ? selected(esc_attr(get_query_var((is_category() ? 'cat' : 'term'))), (is_category() ? $category->term_id : $category->slug), false) : "") ?>
+                                value="<?php echo esc_url($option_url) ?>"><?php echo esc_html($category->name) ?>
+                            </option>
+                            <?php } ?>
+                    </select>
+                </span>
+            </div>
+        </div><!-- End search-form -->
+        <?php
 					}
 				}
 				if ((is_page_template("template-users.php") && $user_search == 1) || (is_page_template("template-categories.php") && $cat_search == 1) || (is_page_template("template-tags.php") && $tag_search == 1) || ((is_tag() || is_tax(ask_question_tags) || is_tax("product_tag")) && $tag_archives_search == 1) || ((is_category() || (!is_post_type_archive() && is_archive()) || is_tax(ask_question_category) || is_post_type_archive(ask_questions_type) || is_tax("product_cat") || is_post_type_archive("product")) && $cat_archives_search == 1)) {
@@ -3476,8 +3510,8 @@ if (!function_exists('vbegy_comment')) {
 
 						if ((($notification_result["text"] == "add_question_user" || $notification_result["text"] == "add_question" || $notification_result["text"] == "add_post" || $notification_result["text"] == "poll_question") && isset($notification_result["another_user_id"]) && $notification_result["another_user_id"] == 0) || (isset($display_name) && $display_name != "")) {
 							if (!empty($notification_result["another_user_id"])) { ?>
-								<a href="<?php echo esc_url($vpanel_get_user_url) ?>"><?php echo esc_html($display_name); ?></a>
-						<?php }
+        <a href="<?php echo esc_url($vpanel_get_user_url) ?>"><?php echo esc_html($display_name); ?></a>
+        <?php }
 							if (!empty($notification_result["username"])) {
 								echo esc_attr($notification_result["username"]) . " ";
 							}
@@ -3503,11 +3537,12 @@ if (!function_exists('vbegy_comment')) {
 						$get_comment = get_comment($notification_result["comment_id"]);
 					}
 					if (!empty($notification_result["post_id"]) && !empty($notification_result["comment_id"]) && $get_post_status != "trash" && isset($get_comment) && $get_comment->comment_approved != "spam" && $get_comment->comment_approved != "trash") { ?>
-						<a href="<?php echo esc_url($get_the_permalink . (isset($notification_result["comment_id"]) ? "#comment-" . $notification_result["comment_id"] : "")) ?>">
-						<?php }
+        <a
+            href="<?php echo esc_url($get_the_permalink . (isset($notification_result["comment_id"]) ? "#comment-" . $notification_result["comment_id"] : "")) ?>">
+            <?php }
 					if (!empty($notification_result["post_id"]) && empty($notification_result["comment_id"]) && $get_post_status != "trash" && isset($get_the_permalink) && $get_the_permalink != "") { ?>
-							<a href="<?php echo esc_url($get_the_permalink) ?>">
-							<?php }
+            <a href="<?php echo esc_url($get_the_permalink) ?>">
+                <?php }
 						echo " ";
 						if ($notification_result["text"] == "add_question_user") {
 							_e("been asked you a question.", "vbegy");
@@ -3583,8 +3618,8 @@ if (!function_exists('vbegy_comment')) {
 							echo sprintf(__("The administrator deleted your %s.", "vbegy"), (isset($notification_result["type_of_item"]) && $notification_result["type_of_item"] == "answer" ? __("answer", "vbegy") : __("comment", "vbegy")));
 						}
 						if ((!empty($notification_result["post_id"]) && !empty($notification_result["comment_id"]) && $get_post_status != "trash" && isset($get_comment) && $get_comment->comment_approved != "spam" && $get_comment->comment_approved != "trash") || (!empty($notification_result["post_id"]) && empty($notification_result["comment_id"]) && $get_post_status != "trash" && isset($get_the_permalink) && $get_the_permalink != "")) { ?>
-							</a>
-				<?php }
+            </a>
+            <?php }
 						if (!empty($notification_result["post_id"]) && !empty($notification_result["comment_id"])) {
 							if (isset($get_comment) && $get_comment->comment_approved == "spam") {
 								echo " " . __('( Spam )', 'vbegy');
@@ -4614,14 +4649,14 @@ if (!function_exists('vbegy_comment')) {
 		if (!function_exists('askme_home_tabs')) :
 			function askme_home_tabs($askme_home_tabs, $first_one, $page_template = "", $the_page_id = 0)
 			{ ?>
-				<div class="wrap-tabs">
-					<div class="menu-tabs">
-						<ul class="menu flex menu-tabs-desktop">
-							<?php askme_home_tab_list($askme_home_tabs, $first_one, $page_template, "li", $the_page_id); ?>
-						</ul>
-					</div><!-- End menu-tabs -->
-				</div><!-- End wrap-tabs -->
-				<?php }
+            <div class="wrap-tabs">
+                <div class="menu-tabs">
+                    <ul class="menu flex menu-tabs-desktop">
+                        <?php askme_home_tab_list($askme_home_tabs, $first_one, $page_template, "li", $the_page_id); ?>
+                    </ul>
+                </div><!-- End menu-tabs -->
+            </div><!-- End wrap-tabs -->
+            <?php }
 		endif;
 		if (!function_exists('askme_home_tab_list')) :
 			function askme_home_tab_list($askme_home_tabs, $first_one, $page_template = "", $list_child = "li", $the_page_id = 0)
@@ -4690,11 +4725,13 @@ if (!function_exists('vbegy_comment')) {
 					foreach ($last_url as $last_key => $last_value) {
 						$get_url = esc_url(add_query_arg("tabs", esc_attr($last_value["link"]), ($page_template != "" ? get_the_permalink($page_template) : home_url('/'))));
 						if ($list_child == "li") { ?>
-		<li class="tab">
-			<a<?php echo (isset($first_one) && $first_one != "" && $first_one == $last_value["link"] ? " class='current'" : "") ?> href="<?php echo esc_url($get_url) ?>">
-			<?php } else { ?>
-				<option<?php echo (isset($first_one) && $first_one != "" && $first_one == $last_value["link"] ? " selected='selected'" : "") ?> value="<?php echo esc_url($get_url) ?>">
-				<?php }
+<li class="tab">
+    <a<?php echo (isset($first_one) && $first_one != "" && $first_one == $last_value["link"] ? " class='current'" : "") ?>
+        href="<?php echo esc_url($get_url) ?>">
+        <?php } else { ?>
+        <option<?php echo (isset($first_one) && $first_one != "" && $first_one == $last_value["link"] ? " selected='selected'" : "") ?>
+            value="<?php echo esc_url($get_url) ?>">
+            <?php }
 						if (isset($last_value["link"]) && (isset($askme_home_tabs[$last_value["link"]]["sort"]) || (isset($last_value["link-2"]) && isset($askme_home_tabs[$last_value["link-2"]]["sort"])))) {
 							if ($last_value["link"] == $recent_questions_slug) {
 								esc_html_e("Recent Questions", "vbegy");
@@ -4725,10 +4762,10 @@ if (!function_exists('vbegy_comment')) {
 							}
 						}
 						if ($list_child == "li") { ?>
-					</a>
-		</li>
-	<?php } else { ?>
-		</option>
+            </a>
+</li>
+<?php } else { ?>
+</option>
 <?php }
 					}
 				}
