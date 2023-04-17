@@ -4283,7 +4283,7 @@ function askme_admin_options()
 		'name' => esc_html__('Register content', 'vbegy'),
 		'desc' => esc_html__('Put the register content in top panel and register page.', 'vbegy'),
 		'id' => 'register_content',
-		'std' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Morbi adipiscing gravdio, sit amet suscipit risus ultrices eu.Fusce viverra neque at purus laoreet consequa.Vivamus vulputate posuere nisl quis consequat.',
+		'std' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Morbi adipiscing gravdio, sit amet suscipit risus ultrices eu.Fusce viverra neque at purus laoreet consequa.Vivamus vulputate posuere nisl quis conseq.',
 		'type' => 'textarea'
 	);
 
