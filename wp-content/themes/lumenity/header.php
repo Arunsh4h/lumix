@@ -2,15 +2,17 @@
 $theme_data = wp_get_theme();
 $theme_version = !empty($theme_data['Version'])?' '.$theme_data['Version']:'';?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?> class="no-js no-svg"<?php echo (is_singular(ask_questions_type) || is_singular(ask_asked_questions_type)?' itemscope="" itemtype="https://schema.org/QAPage"':'')?>>
+<html <?php language_attributes(); ?> class="no-js no-svg"
+    <?php echo (is_singular(ask_questions_type) || is_singular(ask_asked_questions_type)?' itemscope="" itemtype="https://schema.org/QAPage"':'')?>>
+
 <head>
-<meta charset="<?php bloginfo('charset');?>">
-<link rel="profile" href="http://gmpg.org/xfn/11">
-<link rel="pingback" href="<?php bloginfo('pingback_url');?>">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="generator" content="<?php echo esc_attr($theme_data.$theme_version)?>">
-<?php wp_head();?>
+    <meta charset="<?php bloginfo('charset');?>">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="<?php bloginfo('pingback_url');?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="generator" content="<?php echo esc_attr($theme_data.$theme_version)?>">
+    <?php wp_head();?>
 </head>
 <?php
 $site_users_only = askme_options("site_users_only");
@@ -167,76 +169,100 @@ $user_id = 0;
 if (is_user_logged_in) {
 	$user_id = get_current_user_id();
 }?>
+
 <body <?php echo (isset($boxed_end) && $boxed_end != ""?"id='body_".$boxed_end."'":"")?> <?php body_class();?>>
-	<div class="background-cover"></div>
-	<?php
+    <div class="background-cover"></div>
+    <?php
 	$user_reset = (isset($_GET['u']) && $_GET['u']?(int)$_GET['u']:"");
 	$loader_option = askme_options("loader");
 	if ($loader_option == 1) {?>
-		<div class="loader"><div class="loader_html"></div></div>
-	<?php }
+    <div class="loader">
+        <div class="loader_html"></div>
+    </div>
+    <?php }
 	
 	if ((!is_user_logged_in && (isset($_POST["form_type"]) && ($_POST["form_type"] == "ask-signup" || $_POST["form_type"] == "ask-login" || $_POST["form_type"] == "ask-forget"))) || (is_user_logged_in && isset($_POST["form_type"]) && ($_POST["form_type"] == "post-popup" || $_POST["form_type"] == "question-popup" || $_POST["form_type"] == "message-popup"))) {?>
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				function wrap_pop() {
-					jQuery(".wrap-pop").click(function () {
-						jQuery(".panel-pop").animate({"top":"-100%"},500).fadeOut(function () {
-							jQuery(this).animate({"top":"-100%"},500);
-						});
-						jQuery(this).remove();
-					});
-				}
-				jQuery(".panel-pop").animate({"top":"-100%"},10).hide();
-				<?php if ($_POST["form_type"] == "ask-signup") {?>
-					jQuery("#signup").show().animate({"top":"2%"},500);
-				<?php }else if ($_POST["form_type"] == "ask-login") {?>
-					jQuery("#login-comments").show().animate({"top":"2%"},500);
-				<?php }else if ($_POST["form_type"] == "ask-forget") {?>
-					jQuery("#lost-password").show().animate({"top":"2%"},500);
-				<?php }else if ($_POST["form_type"] == "post-popup") {?>
-					jQuery("#add-post").show().animate({"top":"2%"},500);
-				<?php }else if ($_POST["form_type"] == "question-popup") {?>
-					jQuery("#ask-question").show().animate({"top":"2%"},500);
-				<?php }else if ($_POST["form_type"] == "message-popup") {?>
-					jQuery("#send-message").show().animate({"top":"2%"},500);
-				<?php }?>
-				jQuery("html,body").animate({scrollTop:0},500);
-				jQuery("body").prepend("<div class='wrap-pop'></div>");
-				wrap_pop();
-			});
-		</script>
-	<?php }
+    <script type="text/javascript">
+    jQuery(document).ready(function($) {
+        function wrap_pop() {
+            jQuery(".wrap-pop").click(function() {
+                jQuery(".panel-pop").animate({
+                    "top": "-100%"
+                }, 500).fadeOut(function() {
+                    jQuery(this).animate({
+                        "top": "-100%"
+                    }, 500);
+                });
+                jQuery(this).remove();
+            });
+        }
+        jQuery(".panel-pop").animate({
+            "top": "-100%"
+        }, 10).hide();
+        <?php if ($_POST["form_type"] == "ask-signup") {?>
+        jQuery("#signup").show().animate({
+            "top": "2%"
+        }, 500);
+        <?php }else if ($_POST["form_type"] == "ask-login") {?>
+        jQuery("#login-comments").show().animate({
+            "top": "2%"
+        }, 500);
+        <?php }else if ($_POST["form_type"] == "ask-forget") {?>
+        jQuery("#lost-password").show().animate({
+            "top": "2%"
+        }, 500);
+        <?php }else if ($_POST["form_type"] == "post-popup") {?>
+        jQuery("#add-post").show().animate({
+            "top": "2%"
+        }, 500);
+        <?php }else if ($_POST["form_type"] == "question-popup") {?>
+        jQuery("#ask-question").show().animate({
+            "top": "2%"
+        }, 500);
+        <?php }else if ($_POST["form_type"] == "message-popup") {?>
+        jQuery("#send-message").show().animate({
+            "top": "2%"
+        }, 500);
+        <?php }?>
+        jQuery("html,body").animate({
+            scrollTop: 0
+        }, 500);
+        jQuery("body").prepend("<div class='wrap-pop'></div>");
+        wrap_pop();
+    });
+    </script>
+    <?php }
 	
 	if (!is_user_logged_in) {
 		if ((isset($_POST["form_type"]) && ($_POST["form_type"] == "ask-signup" || $_POST["form_type"] == "empty-post")) || empty($_POST)) {?>
-			<div class="panel-pop" id="signup">
-				<h2><?php _e("Register Now","vbegy");?><i class="icon-remove"></i></h2>
-				<div class="form-style form-style-3">
-					<?php echo do_shortcode("[ask_signup]");?>
-				</div>
-			</div><!-- End signup -->
-		<?php }
+    <div class="panel-pop" id="signup">
+        <h2><?php _e("Register Now","vbegy");?><i class="icon-remove"></i></h2>
+        <div class="form-style form-style-3">
+            <?php echo do_shortcode("[ask_signup]");?>
+        </div>
+    </div><!-- End signup -->
+    <?php }
 		
 		if ((isset($_POST["form_type"]) && ($_POST["form_type"] == "ask-login" || $_POST["form_type"] == "empty-post")) || empty($_POST)) {?>
-			<div class="panel-pop" id="login-comments">
-				<h2><?php _e("Login","vbegy");?><i class="icon-remove"></i></h2>
-				<div class="form-style form-style-3">
-					<?php echo do_shortcode("[ask_login]");?>
-				</div>
-			</div><!-- End login-comments -->
-		<?php }
+    <div class="panel-pop" id="login-comments">
+        <h2><?php _e("Login","vbegy");?><i class="icon-remove"></i></h2>
+        <div class="form-style form-style-3">
+            <?php echo do_shortcode("[ask_login]");?>
+        </div>
+    </div><!-- End login-comments -->
+    <?php }
 		
 		if ((isset($_POST["form_type"]) && ($_POST["form_type"] == "ask-forget" || $_POST["form_type"] == "empty-post")) || empty($_POST)) {?>
-			<div class="panel-pop" id="lost-password">
-				<h2><?php _e("Lost Password","vbegy");?><i class="icon-remove"></i></h2>
-				<div class="form-style form-style-3">
-					<p><?php _e("Lost your password? Please enter your email address. You will receive a link and will create a new password via email.","vbegy");?></p>
-					<?php echo do_shortcode("[ask_lost_pass]");?>
-					<div class="clearfix"></div>
-				</div>
-			</div><!-- End lost-password -->
-		<?php }
+    <div class="panel-pop" id="lost-password">
+        <h2><?php _e("Lost Password","vbegy");?><i class="icon-remove"></i></h2>
+        <div class="form-style form-style-3">
+            <p><?php _e("Lost your password? Please enter your email address. You will receive a link and will create a new password via email.","vbegy");?>
+            </p>
+            <?php echo do_shortcode("[ask_lost_pass]");?>
+            <div class="clearfix"></div>
+        </div>
+    </div><!-- End lost-password -->
+    <?php }
 	}
 
 	if (isset($_POST["form_type"]) && ($_POST["form_type"] == "message-popup" || $_POST["form_type"] == "empty-post") || empty($_POST)) {
@@ -270,35 +296,35 @@ if (is_user_logged_in) {
 		$filter_message = apply_filters("askme_filter_send_message",true,$user_id);
 		if ($filter_message == true) {
 			if ($active_message == 1 && ((!is_user_logged_in && $send_message_no_register == 1) || (is_user_logged_in && (empty($user_block_message) || (isset($user_block_message) && is_array($user_block_message) && !in_array(get_current_user_id(),$user_block_message))) && ($block_message != 1 || is_super_admin($user_id)) && ($received_message == "" || $received_message == 1)))) {?>
-				<div class="panel-pop panel-pop-message" id="send-message">
-					<h2><?php _e("Send Message","vbegy");?><i class="icon-remove"></i></h2>
-					<div class="form-style form-style-3">
-						<?php echo do_shortcode("[send_message type='popup']");?>
-					</div>
-				</div><!-- End send-message -->
-			<?php }
+    <div class="panel-pop panel-pop-message" id="send-message">
+        <h2><?php _e("Send Message","vbegy");?><i class="icon-remove"></i></h2>
+        <div class="form-style form-style-3">
+            <?php echo do_shortcode("[send_message type='popup']");?>
+        </div>
+    </div><!-- End send-message -->
+    <?php }
 		}
 	}
 	
 	$add_post_popup = askme_options("add_post_popup");
 	if ($add_post_popup == 1 && (isset($_POST["form_type"]) && ($_POST["form_type"] == "add_post" || $_POST["form_type"] == "post-popup" || $_POST["form_type"] == "empty-post") || empty($_POST))) {?>
-		<div class="panel-pop panel-pop-post" id="add-post">
-			<h2><?php _e("Add post","vbegy");?><i class="icon-remove"></i></h2>
-			<div class="form-style form-style-3">
-				<?php echo do_shortcode("[add_post type='popup']");?>
-			</div>
-		</div><!-- End add-post -->
-	<?php }
+    <div class="panel-pop panel-pop-post" id="add-post">
+        <h2><?php _e("Add post","vbegy");?><i class="icon-remove"></i></h2>
+        <div class="form-style form-style-3">
+            <?php echo do_shortcode("[add_post type='popup']");?>
+        </div>
+    </div><!-- End add-post -->
+    <?php }
 	
 	$ask_question_popup = askme_options("ask_question_popup");
 	if ($ask_question_popup == 1 && (isset($_POST["form_type"]) && ($_POST["form_type"] == "add_question" || $_POST["form_type"] == "question-popup" || $_POST["form_type"] == "empty-post") || empty($_POST))) {?>
-		<div class="panel-pop panel-pop-ask" id="ask-question">
-			<h2><?php _e("Add question","vbegy");?><i class="icon-remove"></i></h2>
-			<div class="form-style form-style-3">
-				<?php echo do_shortcode("[ask_question type='popup']");?>
-			</div>
-		</div><!-- End ask-question -->
-	<?php }
+    <div class="panel-pop panel-pop-ask" id="ask-question">
+        <h2><?php _e("Add question","vbegy");?><i class="icon-remove"></i></h2>
+        <div class="form-style form-style-3">
+            <?php echo do_shortcode("[ask_question type='popup']");?>
+        </div>
+    </div><!-- End ask-question -->
+    <?php }
 
 	do_action("askme_header_after_popup");
 	
@@ -364,70 +390,73 @@ if (is_user_logged_in) {
 		$grid_template = askme_options("home_template");
 	}
 	$grid_template = apply_filters("askme_grid_template",$grid_template);?>
-	
-	<?php $side_panel_skin = askme_options("side_panel_skin");?>
-	<aside class="mobile-aside mobile-menu-wrap mobile-login-wrap<?php echo ($side_panel_skin == "light"?" light-mobile-menu panel_light":($side_panel_skin == "dark"?" dark-mobile-menu panel_dark":" gray-mobile-menu panel_light"))?>">
-		<div class="mobile-aside-inner">
-			<div class="mobile-aside-inner-inner">
-				<a href="#" class="mobile-aside-close">x</a>
-				<div class="row">
-					<?php if (is_user_logged_in) {?>
-						<div class="col-md-12">
-							<div class="page-content">
-								<?php echo is_user_logged_in_data(askme_options("user_links"))?>
-							</div><!-- End page-content -->
-						</div><!-- End col-md-12 -->
-					<?php }else {?>
-						<div class="col-md-6">
-							<div class="page-content">
-								<h2><?php _e("Login","vbegy")?></h2>
-								<div class="form-style form-style-3">
-									<?php echo do_shortcode("[ask_login]");?>
-								</div>
-							</div><!-- End page-content -->
-						</div><!-- End col-md-6 -->
-						<div class="col-md-6">
-							<div class="page-content Register">
-								<h2><?php _e("Register Now","vbegy")?></h2>
-								<p><?php echo stripslashes(askme_options("register_content"))?></p>
-								<div class="button color small signup"><?php _e("Create an account","vbegy")?></div>
-							</div><!-- End page-content -->
-						</div><!-- End col-md-6 -->
-					<?php }?>
-				</div>
-			</div><!-- End mobile-aside-inner-inner -->
-		</div><!-- End mobile-aside-inner -->
-	</aside><!-- End mobile-aside -->
-	
-	<?php $search_page = askme_options('search_page');
+
+    <?php $side_panel_skin = askme_options("side_panel_skin");?>
+    <aside
+        class="mobile-aside mobile-menu-wrap mobile-login-wrap<?php echo ($side_panel_skin == "light"?" light-mobile-menu panel_light":($side_panel_skin == "dark"?" dark-mobile-menu panel_dark":" gray-mobile-menu panel_light"))?>">
+        <div class="mobile-aside-inner">
+            <div class="mobile-aside-inner-inner">
+                <a href="#" class="mobile-aside-close">x</a>
+                <div class="row">
+                    <?php if (is_user_logged_in) {?>
+                    <div class="col-md-12">
+                        <div class="page-content">
+                            <?php echo is_user_logged_in_data(askme_options("user_links"))?>
+                        </div><!-- End page-content -->
+                    </div><!-- End col-md-12 -->
+                    <?php }else {?>
+                    <div class="col-md-6">
+                        <div class="page-content">
+                            <h2><?php _e("Login","vbegy")?></h2>
+                            <div class="form-style form-style-3">
+                                <?php echo do_shortcode("[ask_login]");?>
+                            </div>
+                        </div><!-- End page-content -->
+                    </div><!-- End col-md-6 -->
+                    <div class="col-md-6">
+                        <div class="page-content Register">
+                            <h2><?php _e("Register Now","vbegy")?></h2>
+                            <p><?php echo stripslashes(askme_options("register_content"))?></p>
+                            <div class="button color small signup"><?php _e("Create an account","vbegy")?></div>
+                        </div><!-- End page-content -->
+                    </div><!-- End col-md-6 -->
+                    <?php }?>
+                </div>
+            </div><!-- End mobile-aside-inner-inner -->
+        </div><!-- End mobile-aside-inner -->
+    </aside><!-- End mobile-aside -->
+
+    <?php $search_page = askme_options('search_page');
 	$live_search = askme_options("live_search");
 	$search_var = (get_query_var('search') != ""?wp_unslash(esc_attr(get_query_var('search'))):wp_unslash(esc_attr(get_query_var('s'))));
 	$header_notifications = askme_options("header_notifications");
 	$active_notifications = askme_options("active_notifications");
 	$mobile_menu = askme_options("mobile_menu");
 	$mobile_cart = askme_options("mobile_cart");?>
-	
-	<aside class="mobile-aside mobile-menu-wrap<?php echo (class_exists('woocommerce') && $mobile_cart == 1?" aside-no-cart":" aside-no-cart").($mobile_menu == "light"?" light-mobile-menu":($mobile_menu == "dark"?" dark-mobile-menu":" gray-mobile-menu"))?>">
-		<div class="mobile-aside-inner">
-			<div class="mobile-aside-inner-inner">
-				<a href="#" class="mobile-aside-close">x</a>
-				<?php $top_menu_mobile = askme_options("top_menu_mobile");
+
+    <aside
+        class="mobile-aside mobile-menu-wrap<?php echo (class_exists('woocommerce') && $mobile_cart == 1?" aside-no-cart":" aside-no-cart").($mobile_menu == "light"?" light-mobile-menu":($mobile_menu == "dark"?" dark-mobile-menu":" gray-mobile-menu"))?>">
+        <div class="mobile-aside-inner">
+            <div class="mobile-aside-inner-inner">
+                <a href="#" class="mobile-aside-close">x</a>
+                <?php $top_menu_mobile = askme_options("top_menu_mobile");
 				if ($top_menu_mobile == 1) {?>
-					<div class="mobile-menu-top mobile-aside-menu">
-						<?php if (is_user_logged_in) {
+                <div class="mobile-menu-top mobile-aside-menu">
+                    <?php if (is_user_logged_in) {
 							wp_nav_menu(array('container_class' => 'header-top','menu_class' => 'menu_aside','theme_location' => 'top_bar_login','fallback_cb' => 'vpanel_nav_fallback'));
 						}else {
 							wp_nav_menu(array('container_class' => 'header-top','menu_class' => 'menu_aside','theme_location' => 'top_bar','fallback_cb' => 'vpanel_nav_fallback'));
 						}?>
-					</div>
-				<?php }
+                </div>
+                <?php }
 				
 				$ask_question_mobile = askme_options("ask_question_mobile");
 				if ($ask_question_mobile == 1) {?>
-					<div class="ask-question-menu">
-						<a href="<?php echo esc_url(get_page_link(askme_options('add_question')))?>" class="color button small margin_0"><?php _e("Ask a Question","vbegy")?></a>
-					</div><!-- End ask-question-menu -->
-				<?php }
+                <div class="ask-question-menu">
+                    <a href="<?php echo esc_url(get_page_link(askme_options('add_question')))?>"
+                        class="color button small margin_0"><?php _e("Ask a Question","vbegy")?></a>
+                </div><!-- End ask-question-menu -->
+                <?php }
 				
 				
 				if (class_exists('woocommerce') && $mobile_cart == 1) {
@@ -450,105 +479,116 @@ if (is_user_logged_in) {
 				
 				$search_mobile = askme_options("search_mobile");
 				if ($search_mobile == 1) {?>
-					<div class="post-search">
-						<form role="search" method="get" class="searchform" action="<?php echo esc_url((isset($search_page) && $search_page != ""?get_page_link($search_page):""))?>">
-							<div class="row">
-								<div class="col-md-8">
-									<div class="mobile-search-result">
-										<input<?php echo ($live_search == 1?" class='live-search' autocomplete='off'":"")?> type="search" name="search" value="<?php echo ($search_var != ""?$search_var:esc_html__("Hit enter to search","vbegy"))?>" onfocus="if(this.value=='<?php esc_html_e("Hit enter to search","vbegy")?>')this.value='';" onblur="if(this.value=='')this.value='<?php esc_html_e("Hit enter to search","vbegy")?>';">
-										<input type="hidden" name="page_id" value="<?php echo esc_attr($search_page)?>">
-										<input type="hidden" name="search_type" value="<?php echo esc_attr($search_type)?>">
-										<?php if ($live_search == 1) {?>
-											<div class="loader_2 search_loader"></div>
-											<div class="search-results results-empty"></div>
-										<?php }?>
-									</div>
-								</div><!-- End col-md-8 -->
-								<div class="col-md-4">
-									<input type="submit" class="button-default" value="<?php esc_html_e('Search','vbegy')?>">
-								</div><!-- End col-md-4 -->
-							</div><!-- End row -->
-						</form>
-					</div>
-				<?php }
+                <div class="post-search">
+                    <form role="search" method="get" class="searchform"
+                        action="<?php echo esc_url((isset($search_page) && $search_page != ""?get_page_link($search_page):""))?>">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mobile-search-result">
+                                    <input<?php echo ($live_search == 1?" class='live-search' autocomplete='off'":"")?>
+                                        type="search" name="search"
+                                        value="<?php echo ($search_var != ""?$search_var:esc_html__("Hit enter to search","vbegy"))?>"
+                                        onfocus="if(this.value=='<?php esc_html_e("Hit enter to search","vbegy")?>')this.value='';"
+                                        onblur="if(this.value=='')this.value='<?php esc_html_e("Hit enter to search","vbegy")?>';">
+                                        <input type="hidden" name="page_id" value="<?php echo esc_attr($search_page)?>">
+                                        <input type="hidden" name="search_type"
+                                            value="<?php echo esc_attr($search_type)?>">
+                                        <?php if ($live_search == 1) {?>
+                                        <div class="loader_2 search_loader"></div>
+                                        <div class="search-results results-empty"></div>
+                                        <?php }?>
+                                </div>
+                            </div><!-- End col-md-8 -->
+                            <div class="col-md-4">
+                                <input type="submit" class="button-default"
+                                    value="<?php esc_html_e('Search','vbegy')?>">
+                            </div><!-- End col-md-4 -->
+                        </div><!-- End row -->
+                    </form>
+                </div>
+                <?php }
 				
 				$main_menu_mobile = askme_options("main_menu_mobile");
 				if ($main_menu_mobile == 1) {?>
-					<div class="mobile-menu-left mobile-aside-menu">
-						<?php wp_nav_menu(array('container_class' => 'header-menu','menu_class' => 'menu_aside','theme_location' => 'header_menu','fallback_cb' => 'vpanel_nav_fallback'));?>
-					</div><!-- End mobile-menu-left -->
-				<?php }
+                <div class="mobile-menu-left mobile-aside-menu">
+                    <?php wp_nav_menu(array('container_class' => 'header-menu','menu_class' => 'menu_aside','theme_location' => 'header_menu','fallback_cb' => 'vpanel_nav_fallback'));?>
+                </div><!-- End mobile-menu-left -->
+                <?php }
 				
 				$social_mobile = askme_options("social_mobile");
 				if ($social_mobile == 1) {?>
-					<div class="social_icons f_right">
-						<?php include locate_template("includes/social.php");?>
-					</div><!-- End social_icons -->
-				<?php }?>
-			</div><!-- End mobile-aside-inner-inner -->
-		</div><!-- End mobile-aside-inner -->
-	</aside><!-- End mobile-aside -->
+                <div class="social_icons f_right">
+                    <?php include locate_template("includes/social.php");?>
+                </div><!-- End social_icons -->
+                <?php }?>
+            </div><!-- End mobile-aside-inner-inner -->
+        </div><!-- End mobile-aside-inner -->
+    </aside><!-- End mobile-aside -->
 
-	<?php $mobile_bar_apps = askme_options("mobile_bar_apps");
+    <?php $mobile_bar_apps = askme_options("mobile_bar_apps");
 	$mobile_apps_bar_skin = askme_options("mobile_apps_bar_skin");
 	$mobile_bar_apps_iphone = askme_options("mobile_bar_apps_iphone");
 	$mobile_bar_apps_android = askme_options("mobile_bar_apps_android");?>
-	
-	<div id="wrap" class="<?php echo ($mobile_bar_apps == 1?"mobile_apps_bar_active ":"").($grid_template)." ";if ($header_fixed == 1) {echo "fixed-enabled ";}echo $boxed_end;?>">
-		
-		<?php $login_panel = askme_options("login_panel");
+
+    <div id="wrap"
+        class="<?php echo ($mobile_bar_apps == 1?"mobile_apps_bar_active ":"").($grid_template)." ";if ($header_fixed == 1) {echo "fixed-enabled ";}echo $boxed_end;?>">
+
+        <?php $login_panel = askme_options("login_panel");
 		$top_menu = askme_options("top_menu");
 		if ($login_panel == 1 && $top_menu == 1) {?>
-			<div class="login-panel <?php if ($top_panel_skin == "panel_light") {echo "panel_light";}else {echo "panel_dark";}?>">
-				<section class="container">
-					<div class="row">
-						<?php if (is_user_logged_in) {?>
-							<div class="col-md-12">
-								<div class="page-content">
-									<?php echo is_user_logged_in_data(askme_options("user_links"))?>
-								</div><!-- End page-content -->
-							</div><!-- End col-md-12 -->
-						<?php }else {?>
-							<div class="col-md-6">
-								<div class="page-content">
-									<h2><?php _e("Login","vbegy")?></h2>
-									<div class="form-style form-style-3">
-										<?php echo do_shortcode("[ask_login]");?>
-									</div>
-								</div><!-- End page-content -->
-							</div><!-- End col-md-6 -->
-							<div class="col-md-6">
-								<div class="page-content Register">
-									<h2><?php _e("Register Now","vbegy")?></h2>
-									<p><?php echo stripslashes(askme_options("register_content"))?></p>
-									<div class="button color small signup"><?php _e("Create an account","vbegy")?></div>
-								</div><!-- End page-content -->
-							</div><!-- End col-md-6 -->
-						<?php }?>
-					</div>
-				</section>
-			</div><!-- End login-panel -->
-		<?php }
+        <div
+            class="login-panel <?php if ($top_panel_skin == "panel_light") {echo "panel_light";}else {echo "panel_dark";}?>">
+            <section class="container">
+                <div class="row">
+                    <?php if (is_user_logged_in) {?>
+                    <div class="col-md-12">
+                        <div class="page-content">
+                            <?php echo is_user_logged_in_data(askme_options("user_links"))?>
+                        </div><!-- End page-content -->
+                    </div><!-- End col-md-12 -->
+                    <?php }else {?>
+                    <div class="col-md-6">
+                        <div class="page-content">
+                            <h2><?php _e("Login","vbegy")?></h2>
+                            <div class="form-style form-style-3">
+                                <?php echo do_shortcode("[ask_login]");?>
+                            </div>
+                        </div><!-- End page-content -->
+                    </div><!-- End col-md-6 -->
+                    <div class="col-md-6">
+                        <div class="page-content Register">
+                            <h2><?php _e("Register Now","vbegy")?></h2>
+                            <p><?php echo stripslashes(askme_options("register_content"))?></p>
+                            <div class="button color small signup"><?php _e("Create an account","vbegy")?></div>
+                        </div><!-- End page-content -->
+                    </div><!-- End col-md-6 -->
+                    <?php }?>
+                </div>
+            </section>
+        </div><!-- End login-panel -->
+        <?php }
 
 		if ($mobile_bar_apps == 1 && $mobile_bar_apps_iphone != "" && $mobile_bar_apps_android != "") {?>
-			<div class="mobile-bar ask-hide mobile-bar-apps mobile-bar-apps-<?php echo esc_attr($mobile_apps_bar_skin)?>">
-				<div class="mobile-bar-content">
-					<div class="container">
-						<div class="mobile-bar-apps-left">
-							<span><?php esc_html_e("Open your app","vbegy")?></span>
-						</div>
-						<div class="mobile-bar-apps-right">
-							<?php if ($mobile_bar_apps_iphone != "") {?>
-								<a href="<?php echo esc_url($mobile_bar_apps_iphone)?>" target="_blank" title="iPhone"><i class="fab fa-apple"></i></a>
-							<?php }
+        <div class="mobile-bar ask-hide mobile-bar-apps mobile-bar-apps-<?php echo esc_attr($mobile_apps_bar_skin)?>">
+            <div class="mobile-bar-content">
+                <div class="container">
+                    <div class="mobile-bar-apps-left">
+                        <span><?php esc_html_e("Open your app","vbegy")?></span>
+                    </div>
+                    <div class="mobile-bar-apps-right">
+                        <?php if ($mobile_bar_apps_iphone != "") {?>
+                        <a href="<?php echo esc_url($mobile_bar_apps_iphone)?>" target="_blank" title="iPhone"><i
+                                class="fab fa-apple"></i></a>
+                        <?php }
 							if ($mobile_bar_apps_android != "") {?>
-								<a href="<?php echo esc_url($mobile_bar_apps_android)?>" target="_blank" title="Android"><i class="fab fa-android"></i></a>
-							<?php }?>
-						</div>
-					</div><!-- End container -->
-				</div><!-- End mobile-bar-content -->
-			</div><!-- End mobile-bar -->
-		<?php }
+                        <a href="<?php echo esc_url($mobile_bar_apps_android)?>" target="_blank" title="Android"><i
+                                class="fab fa-android"></i></a>
+                        <?php }?>
+                    </div>
+                </div><!-- End container -->
+            </div><!-- End mobile-bar-content -->
+        </div><!-- End mobile-bar -->
+        <?php }
 		
 		if ($top_menu) {
 			$top_header_layout = askme_options("top_header_layout");
@@ -568,51 +608,58 @@ if (is_user_logged_in) {
 				$top_header_menu = "col-md-6";
 				$top_header_left = "col-md-6";
 			}?>
-			<div id="header-top">
-				<section class="container clearfix">
-					<div class="row">
-						<?php if ($top_header_menu != "") {?>
-							<div class="<?php echo esc_attr($top_header_menu)?>">
-								<nav class="header-top-nav">
-									<?php 
+        <div id="header-top">
+            <section class="container clearfix">
+                <div class="row">
+                    <?php if ($top_header_menu != "") {?>
+                    <div class="<?php echo esc_attr($top_header_menu)?>">
+                        <nav class="header-top-nav">
+                            <?php 
 									if (is_user_logged_in) {
 										wp_nav_menu(array('container_class' => 'header-top','menu_class' => '','theme_location' => 'top_bar_login','fallback_cb' => 'vpanel_nav_fallback'));
 									}else {
 										wp_nav_menu(array('container_class' => 'header-top','menu_class' => '','theme_location' => 'top_bar','fallback_cb' => 'vpanel_nav_fallback'));
 									}?>
-								</nav>
-								<div class="f_left language_selector">
-									<?php do_action('icl_language_selector'); ?>
-								</div>
-								<?php do_action('askme_after_top_bar'); ?>
-								<div class="clearfix"></div>
-							</div><!-- End col-md-* -->
-						<?php }
+                        </nav>
+                        <div class="f_left language_selector">
+                            <?php do_action('icl_language_selector'); ?>
+                        </div>
+                        <?php do_action('askme_after_top_bar'); ?>
+                        <div class="clearfix"></div>
+                    </div><!-- End col-md-* -->
+                    <?php }
 						
 						if ($top_header_left != "") {?>
-							<div class="<?php echo esc_attr($top_header_left).($top_header_menu == ""?" top-header-left":"")?>">
-								<?php $social_icon_h = askme_options("social_icon_h");
+                    <div class="<?php echo esc_attr($top_header_left).($top_header_menu == ""?" top-header-left":"")?>">
+                        <?php $social_icon_h = askme_options("social_icon_h");
 								if ($social_icon_h == 1) {?>
-									<div class="social_icons f_right<?php echo (!is_search() && !is_page_template("template-search.php")?"":" not-show-search")?>">
-										<?php include locate_template("includes/social.php");?>
-									</div><!-- End social_icons -->
-								<?php }
+                        <div
+                            class="social_icons f_right<?php echo (!is_search() && !is_page_template("template-search.php")?"":" not-show-search")?>">
+                            <?php include locate_template("includes/social.php");?>
+                        </div><!-- End social_icons -->
+                        <?php }
 								
 								$header_search = askme_options("header_search");
 								if ($header_search == 1 && !is_search() && !is_page_template("template-search.php")) {?>
-									<div class="header-search">
-										<form method="get" action="<?php echo esc_url((isset($search_page) && $search_page != ""?get_page_link($search_page):""))?>">
-											<input<?php echo ($live_search == 1?" class='live-search header-live-search' autocomplete='off'":"")?> type="text" value="<?php echo ($search_var != ""?$search_var:esc_html__("Search here ...","vbegy"))?>" onfocus="if(this.value=='<?php _e("Search here ...","vbegy");?>')this.value='';" onblur="if(this.value=='')this.value='<?php _e("Search here ...","vbegy");?>';" name="search">
-										    <input type="hidden" name="page_id" value="<?php echo esc_attr($search_page)?>">
-										    <input type="hidden" name="search_type" value="<?php echo esc_attr($search_type)?>">
-										    <?php if ($live_search == 1) {?>
-										    	<div class="search-results results-empty"></div>
-										    <?php }?>
-										    <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
-										    <?php do_action("askme_search_action_in_form")?>
-										</form>
-									</div>
-								<?php }
+                        <div class="header-search">
+                            <form method="get"
+                                action="<?php echo esc_url((isset($search_page) && $search_page != ""?get_page_link($search_page):""))?>">
+                                <input<?php echo ($live_search == 1?" class='live-search header-live-search' autocomplete='off'":"")?>
+                                    type="text"
+                                    value="<?php echo ($search_var != ""?$search_var:esc_html__("Search here ...","vbegy"))?>"
+                                    onfocus="if(this.value=='<?php _e("Search here ...","vbegy");?>')this.value='';"
+                                    onblur="if(this.value=='')this.value='<?php _e("Search here ...","vbegy");?>';"
+                                    name="search">
+                                    <input type="hidden" name="page_id" value="<?php echo esc_attr($search_page)?>">
+                                    <input type="hidden" name="search_type" value="<?php echo esc_attr($search_type)?>">
+                                    <?php if ($live_search == 1) {?>
+                                    <div class="search-results results-empty"></div>
+                                    <?php }?>
+                                    <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+                                    <?php do_action("askme_search_action_in_form")?>
+                            </form>
+                        </div>
+                        <?php }
 								
 								$header_cart = askme_options("header_cart");
 								if (class_exists('woocommerce') && $header_cart == 1) {
@@ -631,13 +678,13 @@ if (is_user_logged_in) {
 										include locate_template("includes/notification.php");
 									}
 								}?>
-								<div class="clearfix"></div>
-							</div><!-- End col-md-* -->
-						<?php }?>
-					</div><!-- End row -->
-				</section><!-- End container -->
-			</div><!-- End header-top -->
-		<?php }
+                        <div class="clearfix"></div>
+                    </div><!-- End col-md-* -->
+                    <?php }?>
+                </div><!-- End row -->
+            </section><!-- End container -->
+        </div><!-- End header-top -->
+        <?php }
 		
 		$index_top_box = "";
 		if ((is_home() || is_front_page()) && !is_page_template("template-home.php")) {
@@ -745,7 +792,8 @@ if (is_user_logged_in) {
 		$retina_logo = apply_filters("askme_retina_logo",$retina_logo);
 		$logo_height = apply_filters("askme_logo_height",$logo_height);
 		$logo_width = apply_filters("askme_logo_width",$logo_width);?>
-		<header id="header" class='<?php if ($header_skin == "header_light") {echo "header_light ";}
+        <header id="header"
+            class='<?php if ($header_skin == "header_light") {echo "header_light ";}
 		if (is_front_page() || is_home()) {
 			if ($index_top_box != 1) {
 				echo "index-no-box ";
@@ -762,128 +810,154 @@ if (is_user_logged_in) {
 			}
 		}
 		if ($logo_position == "right_logo") {echo "header_2 ";}else if ($logo_position == "center_logo") {echo "header_3 ";}?>'>
-			<section class="container clearfix">
-				<div class="logo">
-					<?php if ($logo_display == "custom_image") {?>
-					    <a class="logo-img" href="<?php echo esc_url(home_url('/'));?>" title="<?php echo esc_attr(get_bloginfo('name','display'))?>">
-					    	<?php if ((isset($logo_img) && $logo_img != "") || ($retina_logo == "" && isset($logo_img) && $logo_img != "")) {?>
-					    		<img width="<?php echo (int)$logo_width?>" height="<?php echo (int)$logo_height?>" class="<?php echo ($retina_logo == "" && isset($logo_img) && $logo_img != ""?"retina_logo":"default_logo")?>" alt="<?php echo esc_attr(get_bloginfo('name','display'))?>" src="<?php echo $logo_img?>">
-					    	<?php }
+            <section class="container clearfix">
+                <div class="logo">
+                    <?php if ($logo_display == "custom_image") {?>
+                    <a class="logo-img" href="<?php echo esc_url(home_url('/'));?>"
+                        title="<?php echo esc_attr(get_bloginfo('name','display'))?>">
+                        <?php if ((isset($logo_img) && $logo_img != "") || ($retina_logo == "" && isset($logo_img) && $logo_img != "")) {?>
+                        <img width="<?php echo (int)$logo_width?>" height="<?php echo (int)$logo_height?>"
+                            class="<?php echo ($retina_logo == "" && isset($logo_img) && $logo_img != ""?"retina_logo":"default_logo")?>"
+                            alt="<?php echo esc_attr(get_bloginfo('name','display'))?>" src="<?php echo $logo_img?>">
+                        <?php }
 					    	if (isset($retina_logo) && $retina_logo != "") {?>
-					    		<img width="<?php echo (int)$logo_width?>" height="<?php echo (int)$logo_height?>" class="retina_logo" alt="<?php echo esc_attr(get_bloginfo('name','display'))?>" src="<?php echo esc_attr($retina_logo)?>">
-					    	<?php }?>
-					    </a>
-					<?php }else {?>
-						<h2><a href="<?php echo esc_url(home_url('/'));?>" title="<?php echo esc_attr(get_bloginfo('name','display'))?>"><?php bloginfo('name');?></a></h2>
-					<?php }?>
-				</div>
-				<nav class="navigation">
-					<?php wp_nav_menu(array('container_class' => 'header-menu','menu_class' => '','theme_location' => 'header_menu','fallback_cb' => 'vpanel_nav_fallback'));?>
-				</nav>
-				<div class="mobile-menu">
-					<div class="mobile-menu-click navigation_mobile"></div>
-				</div>
-			</section><!-- End container -->
-		</header><!-- End header -->
-		
-		<?php $top_after_header = false;
+                        <img width="<?php echo (int)$logo_width?>" height="<?php echo (int)$logo_height?>"
+                            class="retina_logo" alt="<?php echo esc_attr(get_bloginfo('name','display'))?>"
+                            src="<?php echo esc_attr($retina_logo)?>">
+                        <?php }?>
+                    </a>
+                    <?php }else {?>
+                    <h2><a href="<?php echo esc_url(home_url('/'));?>"
+                            title="<?php echo esc_attr(get_bloginfo('name','display'))?>"><?php bloginfo('name');?></a>
+                    </h2>
+                    <?php }?>
+                </div>
+                <nav class="navigation">
+                    <?php wp_nav_menu(array('container_class' => 'header-menu','menu_class' => '','theme_location' => 'header_menu','fallback_cb' => 'vpanel_nav_fallback'));?>
+                </nav>
+                <div class="mobile-menu">
+                    <div class="mobile-menu-click navigation_mobile"></div>
+                </div>
+            </section><!-- End container -->
+        </header><!-- End header -->
+
+        <?php $top_after_header = false;
 		if ($site_users_only != "yes") {
 			if (is_page_template("template-home.php") || is_front_page()) {
-				$ask_a_new_question = __("Ask a question and you will be sure to find an answer!","vbegy");
+				$ask_a_new_question = __("You’re ready to ask a programming-related question and this form will help guide you through the process.","vbegy");
 				if ($index_top_box == 1) {?>
-					<div class="section-warp top-after-header<?php echo (isset($remove_index_content) && $remove_index_content == 1?" remove-index-content":"")?>"<?php echo $index_top_box_style?>>
-						<?php
+        <div class="section-warp top-after-header<?php echo (isset($remove_index_content) && $remove_index_content == 1?" remove-index-content":"")?>"
+            <?php echo $index_top_box_style?>>
+            <?php
 						if ($index_top_box_background == "slideshow") {
 							$upload_images_home = get_post_meta($post->ID,'vbegy_upload_images_home',true);
 							if (is_array($upload_images_home) && !empty($upload_images_home)) {?>
-								<div class="flexslider blog_silder margin_b_20 post-img">
-								    <ul class="slides">
-								    	<?php
+            <div class="flexslider blog_silder margin_b_20 post-img">
+                <ul class="slides">
+                    <?php
 								    	foreach ($upload_images_home as $att) {
 								    	    $src = wp_get_attachment_image_src($att,'full');
 								    	    $src = $src[0];?>
-								    	    <li><img alt="" src="<?php echo $src;?>"></li>
-								    	<?php }?>
-								    </ul>
-								</div><!-- End flexslider -->
-							<?php }
+                    <li><img alt="" src="<?php echo $src;?>"></li>
+                    <?php }?>
+                </ul>
+            </div><!-- End flexslider -->
+            <?php }
 						}?>
-						<div class="container clearfix">
-							<div class="box_icon box_warp box_no_border box_no_background">
-								<div class="row">
-									<?php $remove_index_content = apply_filters("askme_filter_remove_content",$remove_index_content);
+            <div class="container clearfix">
+                <div class="box_icon box_warp box_no_border box_no_background">
+                    <div class="row">
+                        <?php $remove_index_content = apply_filters("askme_filter_remove_content",$remove_index_content);
 									if ($remove_index_content != 1) {
 										if ($index_top_box_layout == 2) {?>
-											<div class="col-md-12">
-												<h2><?php echo stripslashes($index_title);?></h2>
-												<p><?php echo stripslashes($index_content);?></p>
-												<div class="clearfix"></div>
-												<?php if (is_user_logged_in) {
+                        <div class="col-md-12">
+                            <h2><?php echo stripslashes($index_title);?></h2>
+                            <p><?php echo stripslashes($index_content);?></p>
+                            <div class="clearfix"></div>
+                            <?php if (is_user_logged_in) {
 													if ($index_about_login != "") {?>
-														<a class="color button dark_button medium" href="<?php echo $index_about_h_login?>"><?php echo $index_about_login?></a>
-													<?php }
+                            <a class="color button dark_button medium"
+                                href="<?php echo $index_about_h_login?>"><?php echo $index_about_login?></a>
+                            <?php }
 													if ($index_join_login != "") {?>
-														<a class="color button dark_button medium" href="<?php echo $index_join_h_login?>"><?php echo $index_join_login?></a>
-													<?php }
+                            <a class="color button dark_button medium"
+                                href="<?php echo $index_join_h_login?>"><?php echo $index_join_login?></a>
+                            <?php }
 												}else {
 													if ($index_about != "") {?>
-														<a class="color button dark_button medium" href="<?php echo $index_about_h?>"><?php echo $index_about?></a>
-													<?php }
+                            <a class="color button dark_button medium"
+                                href="<?php echo $index_about_h?>"><?php echo $index_about?></a>
+                            <?php }
 													if ($index_join != "") {?>
-														<a class="color button dark_button medium" href="<?php echo $index_join_h?>"><?php echo $index_join?></a>
-													<?php }
+                            <a class="color button dark_button medium"
+                                href="<?php echo $index_join_h?>"><?php echo $index_join?></a>
+                            <?php }
 												}?>
-												
-												<div class="clearfix"></div>
-												<form class="form-style form-style-2" method="post" action="<?php echo esc_url(get_page_link(askme_options('add_question')))?>">
-													<p>
-														<input name="<?php echo ($index_title_comment == "comment"?"comment":"title")?>" type="text" id="question_title" value="<?php echo $ask_a_new_question;?>" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;">
-														<i class="icon-pencil"></i>
-														<button class="ask-question"><span class="color button small publish-question<?php echo (is_user_logged_in?"":" ask-not-login")?>"><?php _e("Ask Now","vbegy");?></span></button>
-													</p>
-													<input type="hidden" name="form_type" value="empty-post">
-												</form>
-											</div>
-										<?php }else {?>
-											<div class="col-md-3">
-												<h2><?php echo stripslashes($index_title);?></h2>
-												<p><?php echo stripslashes($index_content);?></p>
-												<div class="clearfix"></div>
-												<?php if (is_user_logged_in) {
+
+                            <div class="clearfix"></div>
+                            <form class="form-style form-style-2" method="post"
+                                action="<?php echo esc_url(get_page_link(askme_options('add_question')))?>">
+                                <p>
+                                    <input name="<?php echo ($index_title_comment == "comment"?"comment":"title")?>"
+                                        type="text" id="question_title" value="<?php echo $ask_a_new_question;?>"
+                                        onfocus="if(this.value==this.defaultValue)this.value='';"
+                                        onblur="if(this.value=='')this.value=this.defaultValue;">
+                                    <i class="icon-pencil"></i>
+                                    <button class="ask-question"><span
+                                            class="color button small publish-question<?php echo (is_user_logged_in?"":" ask-not-login")?>"><?php _e("Ask Now","vbegy");?></span></button>
+                                </p>
+                                <input type="hidden" name="form_type" value="empty-post">
+                            </form>
+                        </div>
+                        <?php }else {?>
+                        <div class="col-md-3">
+                            <h2><?php echo stripslashes($index_title);?></h2>
+                            <p><?php echo stripslashes($index_content);?></p>
+                            <div class="clearfix"></div>
+                            <?php if (is_user_logged_in) {
 													if ($index_about_login != "") {?>
-														<a class="color button dark_button medium" href="<?php echo $index_about_h_login?>"><?php echo $index_about_login?></a>
-													<?php }
+                            <a class="color button dark_button medium"
+                                href="<?php echo $index_about_h_login?>"><?php echo $index_about_login?></a>
+                            <?php }
 													if ($index_join_login != "") {?>
-														<a class="color button dark_button medium" href="<?php echo $index_join_h_login?>"><?php echo $index_join_login?></a>
-													<?php }
+                            <a class="color button dark_button medium"
+                                href="<?php echo $index_join_h_login?>"><?php echo $index_join_login?></a>
+                            <?php }
 												}else {
 													if ($index_about != "") {?>
-														<a class="color button dark_button medium" href="<?php echo $index_about_h?>"><?php echo $index_about?></a>
-													<?php }
+                            <a class="color button dark_button medium"
+                                href="<?php echo $index_about_h?>"><?php echo $index_about?></a>
+                            <?php }
 													if ($index_join != "") {?>
-														<a class="color button dark_button medium" href="<?php echo $index_join_h?>"><?php echo $index_join?></a>
-													<?php }
+                            <a class="color button dark_button medium"
+                                href="<?php echo $index_join_h?>"><?php echo $index_join?></a>
+                            <?php }
 												}?>
-											</div>
-											<div class="col-md-9">
-												<form class="form-style form-style-2" method="post" action="<?php echo esc_url(get_page_link(askme_options('add_question')))?>">
-													<p>
-														<textarea name="<?php echo ($index_title_comment == "comment"?"comment":"title")?>" rows="4" id="question_title" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"><?php echo $ask_a_new_question;?></textarea>
-														<i class="icon-pencil"></i>
-														<button class="ask-question"><span class="color button small publish-question<?php echo (is_user_logged_in?"":" ask-not-login")?>"><?php _e("Ask Now","vbegy");?></span></button>
-													</p>
-													<input type="hidden" name="form_type" value="empty-post">
-												</form>
-											</div>
-										<?php }
+                        </div>
+                        <div class="col-md-9">
+                            <form class="form-style form-style-2" method="post"
+                                action="<?php echo esc_url(get_page_link(askme_options('add_question')))?>">
+                                <p>
+                                    <textarea name="<?php echo ($index_title_comment == "comment"?"comment":"title")?>"
+                                        rows="4" id="question_title"
+                                        onfocus="if(this.value==this.defaultValue)this.value='';"
+                                        onblur="if(this.value=='')this.value=this.defaultValue;"><?php echo $ask_a_new_question;?></textarea>
+                                    <i class="icon-pencil"></i>
+                                    <button class="ask-question"><span
+                                            class="color button small publish-question<?php echo (is_user_logged_in?"":" ask-not-login")?>"><?php _e("Ask Now","vbegy");?></span></button>
+                                </p>
+                                <input type="hidden" name="form_type" value="empty-post">
+                            </form>
+                        </div>
+                        <?php }
 									}else {
 										do_action("askme_action_without_content");
 									}?>
-								</div><!-- End row -->
-							</div><!-- End box_icon -->
-						</div><!-- End container -->
-					</div><!-- End section-warp -->
-				<?php
+                    </div><!-- End row -->
+                </div><!-- End box_icon -->
+            </div><!-- End container -->
+        </div><!-- End section-warp -->
+        <?php
 				}
 			}else {
 				if (is_singular(ask_questions_type) || is_singular(ask_asked_questions_type)) {
@@ -909,12 +983,12 @@ if (is_user_logged_in) {
 		$big_video = askme_options("big_video");
 		$big_video_work = askme_options("big_video_work");
 		if (($big_video_work == "all_pages" || ((is_front_page() || is_home()) && $big_video_work == "home_page") || (!is_front_page() && !is_home() && $big_video_work == "pages_no_home")) && $big_video == 1) {?>
-			<div class="section-warp top-after-header big-video">
-				<div class="container clearfix">
-					<div class="box_icon box_warp box_no_border box_no_background">
-						<div class="row">
-							<div class="col-md-12">
-								<?php $video_height = askme_options('video_height');
+        <div class="section-warp top-after-header big-video">
+            <div class="container clearfix">
+                <div class="box_icon box_warp box_no_border box_no_background">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php $video_height = askme_options('video_height');
 								$video_id = askme_options('video_id');
 								$video_type = askme_options('video_type');
 								$type = askme_video_iframe($video_type,$video_id,"options","video_id");
@@ -939,40 +1013,48 @@ if (is_user_logged_in) {
 								}else if (isset($type) && $type != "") {
 									echo '<iframe frameborder="0" allowfullscreen height="'.$video_height.'" src="'.$type.'"></iframe>';
 								}?>
-							</div>
-						</div><!-- End row -->
-					</div><!-- End box_icon -->
-				</div><!-- End container -->
-			</div><!-- End section-warp -->
-		<?php }
+                        </div>
+                    </div><!-- End row -->
+                </div><!-- End box_icon -->
+            </div><!-- End container -->
+        </div><!-- End section-warp -->
+        <?php }
 		
 		$big_search = askme_options("big_search");
 		$big_search_work = askme_options("big_search_work");
 		if (($big_search_work == "all_pages" || ((is_front_page() || is_home()) && $big_search_work == "home_page") || (!is_front_page() && !is_home() && $big_search_work == "pages_no_home")) && $big_search == 1 && !is_search() && !is_page_template("template-search.php")) {?>
-			<div class="section-warp top-after-header big-search">
-				<div class="container clearfix">
-					<div class="box_icon box_warp box_no_border box_no_background">
-						<div class="row">
-							<div class="col-md-12">
-								<form class="form-style form-style-2" method="get" action="<?php echo esc_url((isset($search_page) && $search_page != ""?get_page_link($search_page):""))?>">
-									<div class="search-p">
-										<input<?php echo ($live_search == 1?" class='live-search live-search-big' autocomplete='off'":"")?> type="text" value="<?php echo ($search_var != ""?$search_var:esc_html__("Search here ...","vbegy"))?>" onfocus="if(this.value=='<?php _e("Search here ...","vbegy");?>')this.value='';" onblur="if(this.value=='')this.value='<?php _e("Search here ...","vbegy");?>';" name="search">
-										<input type="hidden" name="page_id" value="<?php echo esc_attr($search_page)?>">
-										<input type="hidden" name="search_type" value="<?php echo esc_attr($search_type)?>">
-										<i class="fa fa-search"></i>
-										<button class="ask-search"><span class="color button small publish-question"><?php _e("Search","vbegy");?></span></button>
-										<?php if ($live_search == 1) {?>
-											<div class="search-results results-empty"></div>
-										<?php }?>
-									</div>
-									<?php do_action("askme_search_action_in_form")?>
-								</form>
-							</div>
-						</div><!-- End row -->
-					</div><!-- End box_icon -->
-				</div><!-- End container -->
-			</div><!-- End section-warp -->
-		<?php }
+        <div class="section-warp top-after-header big-search">
+            <div class="container clearfix">
+                <div class="box_icon box_warp box_no_border box_no_background">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-style form-style-2" method="get"
+                                action="<?php echo esc_url((isset($search_page) && $search_page != ""?get_page_link($search_page):""))?>">
+                                <div class="search-p">
+                                    <input<?php echo ($live_search == 1?" class='live-search live-search-big' autocomplete='off'":"")?>
+                                        type="text"
+                                        value="<?php echo ($search_var != ""?$search_var:esc_html__("Search here ...","vbegy"))?>"
+                                        onfocus="if(this.value=='<?php _e("Search here ...","vbegy");?>')this.value='';"
+                                        onblur="if(this.value=='')this.value='<?php _e("Search here ...","vbegy");?>';"
+                                        name="search">
+                                        <input type="hidden" name="page_id" value="<?php echo esc_attr($search_page)?>">
+                                        <input type="hidden" name="search_type"
+                                            value="<?php echo esc_attr($search_type)?>">
+                                        <i class="fa fa-search"></i>
+                                        <button class="ask-search"><span
+                                                class="color button small publish-question"><?php _e("Search","vbegy");?></span></button>
+                                        <?php if ($live_search == 1) {?>
+                                        <div class="search-results results-empty"></div>
+                                        <?php }?>
+                                </div>
+                                <?php do_action("askme_search_action_in_form")?>
+                            </form>
+                        </div>
+                    </div><!-- End row -->
+                </div><!-- End box_icon -->
+            </div><!-- End container -->
+        </div><!-- End section-warp -->
+        <?php }
 		
 		do_action("askme_after_header_search");
 		
@@ -1064,8 +1146,9 @@ if (is_user_logged_in) {
 				}
 			}
 		}?>
-		<section class="container main-content <?php echo (!is_404() && $site_users_only != "yes"?$sidebar_dir:"page-full-width");?>">
-			<?php do_action("askme_header_action");
+        <section
+            class="container main-content <?php echo (!is_404() && $site_users_only != "yes"?$sidebar_dir:"page-full-width");?>">
+            <?php do_action("askme_header_action");
 			if (is_user_logged_in) {
 				$question_publish = askme_options("question_publish");
 				$post_publish = askme_options("post_publish");
@@ -1088,11 +1171,12 @@ if (is_user_logged_in) {
 			vpanel_session('','vbegy_session_message');
 			vpanel_session('','vbegy_session_user');
 			vpanel_session('','vbegy_session_all');?>
-			
-			<div class="row">
-				<div class="with-sidebar-container">
-					<div class="main-sidebar-container <?php echo (!is_404() && $site_users_only != "yes"?$homepage_content_span:$full_span);?>">
-					<?php if (isset($_GET['reset_password']) && $user_reset != "") {
+
+            <div class="row">
+                <div class="with-sidebar-container">
+                    <div
+                        class="main-sidebar-container <?php echo (!is_404() && $site_users_only != "yes"?$homepage_content_span:$full_span);?>">
+                        <?php if (isset($_GET['reset_password']) && $user_reset != "") {
 						if (!is_user_logged_in) {
 							$reset_password = get_user_meta($user_reset,"reset_password",true);
 							if ($reset_password == esc_attr($_GET['reset_password'])) {
@@ -1244,8 +1328,8 @@ if (is_user_logged_in) {
 					}
 					
 					if ($site_users_only == "yes") {?>
-						<div class='index-no-box index-no-box-30'></div>
-						<div class="login<?php if (is_front_page() || is_home()) {
+                        <div class='index-no-box index-no-box-30'></div>
+                        <div class="login<?php if (is_front_page() || is_home()) {
 							if ($index_top_box != 1) {
 								echo " index-no-box-login";
 							}
@@ -1254,27 +1338,28 @@ if (is_user_logged_in) {
 								echo " index-no-box-login";
 							}
 						}?>">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="page-content">
-										<h2><?php _e("Login","vbegy")?></h2>
-										<div class="form-style form-style-3">
-											<?php echo do_shortcode("[ask_login]");?>
-										</div>
-									</div><!-- End page-content -->
-								</div><!-- End col-md-6 -->
-								<?php if (!is_user_logged_in) {?>
-									<div class="col-md-6">
-										<div class="page-content">
-											<h2><?php _e("Register Now","vbegy")?></h2>
-											<p><?php echo stripslashes(askme_options("register_content"))?></p>
-											<div class="button small color signup"><?php _e("Create an account","vbegy")?></div>
-										</div><!-- End page-content -->
-									</div><!-- End col-md-6 -->
-								<?php }?>
-							</div><!-- End row -->
-						</div><!-- End login -->
-						<?php get_footer();
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="page-content">
+                                        <h2><?php _e("Login","vbegy")?></h2>
+                                        <div class="form-style form-style-3">
+                                            <?php echo do_shortcode("[ask_login]");?>
+                                        </div>
+                                    </div><!-- End page-content -->
+                                </div><!-- End col-md-6 -->
+                                <?php if (!is_user_logged_in) {?>
+                                <div class="col-md-6">
+                                    <div class="page-content">
+                                        <h2><?php _e("Register Now","vbegy")?></h2>
+                                        <p><?php echo stripslashes(askme_options("register_content"))?></p>
+                                        <div class="button small color signup"><?php _e("Create an account","vbegy")?>
+                                        </div>
+                                    </div><!-- End page-content -->
+                                </div><!-- End col-md-6 -->
+                                <?php }?>
+                            </div><!-- End row -->
+                        </div><!-- End login -->
+                        <?php get_footer();
 						die();
 					}
 					
